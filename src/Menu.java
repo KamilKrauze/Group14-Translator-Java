@@ -18,13 +18,14 @@ public class Menu extends JFrame {
 	public static void main(String[] Args)
 	{
 		Menu menu = new Menu();
-		menu.mainMenu();
+		menu.modifyMenu();
 	}
 	
 	public void mainMenu()
 	{
 		int panelOffset = 60;
 		
+////////////////////////PANELS////////////////////////////////////////
 		JPanel panelMain = new JPanel();
 		panelMain.setBackground(Color.gray);
 		panelMain.setBounds(0,0,800,600);
@@ -45,15 +46,6 @@ public class Menu extends JFrame {
 		newLang.setBounds(400,5,200,40);
 		newLang.setLayout(null);
 		
-		JComboBox initLangBox = new JComboBox(langList);
-		initLangBox.setSelectedIndex(0);
-		initLangBox.setBounds(5,0,150,40);
-		//languages.addActionListener(this);
-		
-		JComboBox newLangBox = new JComboBox(langList);
-		newLangBox.setSelectedIndex(1);
-		newLangBox.setBounds(5,0,150,40);
-		
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(Color.gray);
 		panel1.setBounds(25,35+panelOffset,350,325);
@@ -63,7 +55,7 @@ public class Menu extends JFrame {
 		panel2.setBackground(Color.gray);
 		panel2.setBounds(400,35+panelOffset,350,325);
 		panel2.setLayout(null);
-		
+
 		JPanel translate = new JPanel();
 		translate.setBackground(Color.gray);
 		translate.setBounds(25,375+panelOffset-10,725,60);
@@ -74,10 +66,21 @@ public class Menu extends JFrame {
 		btnPanel.setBounds(25,490,725,60);
 		btnPanel.setLayout(null);
 		
+////////////////////////////////PANEL COMPONENTS////////////////////////////////////////
+		
+		JComboBox initLangBox = new JComboBox(langList);
+		initLangBox.setSelectedIndex(0);
+		initLangBox.setBounds(5,0,150,40);
+		//languages.addActionListener(this);
+		
+		JComboBox newLangBox = new JComboBox(langList);
+		newLangBox.setSelectedIndex(1);
+		newLangBox.setBounds(5,0,150,40);
+		
 		JLabel greeting = new JLabel();
 		greeting.setBounds(-50, 15, 500, 25);
 		greeting.setText("Welcome");
-		greeting.setFont(new Font("Verdana", Font.PLAIN, 25));
+		greeting.setFont(new Font("Verdana", Font.BOLD, 25));
 		greeting.setVerticalAlignment(JLabel.BOTTOM);
 		greeting.setHorizontalAlignment(JLabel.RIGHT);
 		
@@ -122,6 +125,8 @@ public class Menu extends JFrame {
 		modify.setText("Modify");
 		modify.setToolTipText("Modify the translation");
 		
+//////////////////// APP FRAME ///////////////////////////////////	
+	
 		JFrame menu = new JFrame();
 		menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menu.setLayout(null);
@@ -130,31 +135,88 @@ public class Menu extends JFrame {
 		menu.setTitle("Translator");
 		menu.setResizable(false);
 		
+/////////////////// APPLYING TO FRAME ///////////////////////////////////
+		
 		menu.add(langOptions);
+			
 			langOptions.add(initLang);
 				initLang.add(initLangBox);
+			
 			langOptions.add(newLang);
-			newLang.add(newLangBox);
+				newLang.add(newLangBox);
 			
 		menu.add(panel1);
-		panel1.add(translatee);
+			panel1.add(translatee);
 		
 		menu.add(panel2);
-		panel2.add(translated);
+			panel2.add(translated);
 		
 		menu.add(translate);
-		translate.add(translateBTN);
+			translate.add(translateBTN);
 		
 		menu.add(btnPanel);
-		btnPanel.add(load);
-		btnPanel.add(save);
-		btnPanel.add(test);
-		btnPanel.add(modify);
+			btnPanel.add(load);
+			btnPanel.add(save);
+			btnPanel.add(test);
+			btnPanel.add(modify);
 	
 		panelMain.add(greeting);
-		menu.add(panelMain);
+			menu.add(panelMain);
 		
 		menu.setVisible(true);
 	}
 	
+	public void modifyMenu()
+	{
+		JPanel panelMain = new JPanel();
+		panelMain.setBackground(Color.gray);
+		panelMain.setBounds(0,0,800,600);
+		panelMain.setLayout(null);
+		
+		JPanel langPanel = new JPanel();
+		langPanel.setBackground(Color.BLUE);
+		langPanel.setBounds(5,5,775,475);
+		langPanel.setLayout(null);
+		
+		JPanel btnPanel = new JPanel();
+		btnPanel.setBackground(Color.RED);
+		btnPanel.setBounds(5,485,775,60);
+		btnPanel.setLayout(null);
+		
+		JTextArea phraseBox = new JTextArea();
+		phraseBox.setBounds(1,1,773,473);
+		phraseBox.setFont(new Font("Verdana", Font.PLAIN, 18));
+		phraseBox.setLineWrap(true);
+		phraseBox.setWrapStyleWord(true);
+		
+		JButton ConfirmBTN = new JButton();
+		ConfirmBTN.setBounds(270,5,100,50);
+		ConfirmBTN.setText("Confirm");
+		ConfirmBTN.setToolTipText("Confirm your current modifications");
+		
+		JButton ApplyBTN = new JButton();
+		ApplyBTN.setBounds(375,5,100,50);
+		ApplyBTN.setText("Apply");
+		ApplyBTN.setToolTipText("Apply your current modifications");
+		
+		JScrollPane scrollBar1 = new JScrollPane(phraseBox, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,  JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		JFrame modMenu = new JFrame();
+		modMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		modMenu.setLayout(null);
+		modMenu.setSize(800,600);
+		modMenu.setBackground(Color.gray);
+		modMenu.setTitle("Modify");
+		modMenu.setResizable(false);
+		
+		modMenu.add(panelMain);
+			panelMain.add(langPanel);
+				langPanel.add(phraseBox);
+				langPanel.add(scrollBar1);
+			panelMain.add(btnPanel);
+				btnPanel.add(ConfirmBTN);
+				btnPanel.add(ApplyBTN);
+		
+		modMenu.setVisible(true);
+	}
 }
