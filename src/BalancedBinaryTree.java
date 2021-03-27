@@ -28,28 +28,28 @@ public class BalancedBinaryTree<T> extends BinaryTree<T> {
     }
 
     private void balanceTree() {
-        List<TreeNode<T>> preorderList = new ArrayList<TreeNode<T>>();
-        super.traverseTreePreorder(super.root, x -> preorderList.add(x));
-        super.root = this.recreateTreeFromPreorderList(preorderList);
+        List<TreeNode<T>> inorderList = new ArrayList<TreeNode<T>>();
+        super.traverseTreeInorder(super.root, x -> inorderList.add(x));
+        super.root = this.recreateTreeFromInorderList(inorderList);
     }
 
-    private TreeNode<T> recreateTreeFromPreorderList(List<TreeNode<T>> preorderList) {
-        int middle = preorderList.size() / 2;
-        TreeNode<T> node = preorderList.get(middle);
-        
+    private TreeNode<T> recreateTreeFromInorderList(List<TreeNode<T>> inorderList) {
+        int middle = inorderList.size() / 2;
+        TreeNode<T> node = inorderList.get(middle);
+
         node.setLeft(null);
         node.setRight(null);
 
         List<TreeNode<T>> leftList;
         List<TreeNode<T>> rightList;
 
-        if (preorderList.size() > 1) {
-            leftList = preorderList.subList(0, middle);
-            node.setLeft(recreateTreeFromPreorderList(leftList));
+        if (inorderList.size() > 1) {
+            leftList = inorderList.subList(0, middle);
+            node.setLeft(recreateTreeFromInorderList(leftList));
         }
-        if (preorderList.size() > 2) {
-            rightList = preorderList.subList(middle + 1, leftList.size() - 1); //NOLINT
-            node.setRight(recreateTreeFromPreorderList(rightList));
+        if (inorderList.size() > 2) {
+            rightList = inorderList.subList(middle + 1, leftList.size() - 1); //NOLINT
+            node.setRight(recreateTreeFromInorderList(rightList));
         }
         return node;
     }

@@ -50,7 +50,8 @@ elseif node has both children
     point toDelete parent to current
 
 ### Balancing nodes
-We save the tree preorder to a List and then load it back from the list in the following way:
+We save the tree inorder to a List and then load it back from the list in the following way:
+The inorder traversal produces an already sorted list and 
 
 set root node to the middle of the list
 split the list into left and right
