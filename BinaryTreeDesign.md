@@ -49,7 +49,14 @@ elseif node has both children
     * replace toDelete with current
     point toDelete parent to current
 
+### Balancing nodes
+We save the tree preorder to a List and then load it back from the list in the following way:
 
+set root node to the middle of the list
+split the list into left and right
+set the root.left to the middle of the left list
+set the root.right to the middle of the right list
+recursively continue
 
 # Test plan
 

@@ -188,6 +188,7 @@ public class BinaryTree<T> {
 
     /**
      * Helper function for node deletion. Gets the toDeleteNode and its parent.
+     * 
      * @param id of the node to find
      * @throws NodeDoesntExistException if node with given id doesnt exist
      */
@@ -234,7 +235,7 @@ public class BinaryTree<T> {
      */
     public String getInorderString() {
         StringBuilder s = new StringBuilder();
-        traverseTreeInorder(root, x -> s.append(x + " "));
+        traverseTreeInorder(root, x -> s.append(x.getValue() + " "));
         return s.toString();
     }
 
@@ -244,10 +245,10 @@ public class BinaryTree<T> {
      * @param current currently being checked
      * @param f       function to execute on each node
      */
-    protected void traverseTreeInorder(TreeNode<T> current, Consumer<T> f) {
+    protected void traverseTreeInorder(TreeNode<T> current, Consumer<TreeNode<T>> f) {
         if (current != null) {
             traverseTreeInorder(current.getLeft(), f);
-            f.accept(current.getValue());
+            f.accept(current);
             traverseTreeInorder(current.getRight(), f);
         }
     }
@@ -258,7 +259,7 @@ public class BinaryTree<T> {
      */
     public String getPostorderString() {
         StringBuilder s = new StringBuilder();
-        traverseTreePostorder(root, x -> s.append(x + " "));
+        traverseTreePostorder(root, x -> s.append(x.getValue() + " "));
         return s.toString();
     }
 
@@ -268,14 +269,14 @@ public class BinaryTree<T> {
      * @param current currently being checked
      * @param f       function to execute on each node
      */
-    protected void traverseTreePostorder(TreeNode<T> current, Consumer<T> f) {
+    protected void traverseTreePostorder(TreeNode<T> current, Consumer<TreeNode<T>> f) {
         if (current.getLeft() != null) {
-            traverseTreeInorder(current.getLeft(), f);
+            traverseTreePostorder(current.getLeft(), f);
         }
         if (current.getRight() != null) {
-            traverseTreeInorder(current.getRight(), f);
+            traverseTreePostorder(current.getRight(), f);
         }
-        f.accept(current.getValue());
+        f.accept(current);
     }
 
     /**
@@ -284,7 +285,7 @@ public class BinaryTree<T> {
      */
     public String getPreorderString() {
         StringBuilder s = new StringBuilder();
-        traverseTreePreorder(root, x -> s.append(x + " "));
+        traverseTreePreorder(root, x -> s.append(x.getValue() + " "));
         return s.toString();
     }
 
@@ -294,33 +295,13 @@ public class BinaryTree<T> {
      * @param current currently being checked
      * @param f       function to execute on each node
      */
-    protected void traverseTreePreorder(TreeNode<T> current, Consumer<T> f) {
-        f.accept(current.getValue());
+    protected void traverseTreePreorder(TreeNode<T> current, Consumer<TreeNode<T>> f) {
+        f.accept(current);
         if (current.getLeft() != null) {
-            traverseTreeInorder(current.getLeft(), f);
+            traverseTreePreorder(current.getLeft(), f);
         }
         if (current.getRight() != null) {
-            traverseTreeInorder(current.getRight(), f);
-        }
-    }
-
-    /**
-     * Gets the height of the tree at the node
-     * 
-     * @param node the node to check
-     * @return int height
-     */
-    private int getHeight(TreeNode<T> node) {
-        if (node == null) {
-            return 0;
-        }
-
-        int leftH = getHeight(node.getLeft());
-        int rightH = getHeight(node.getRight());
-        if (leftH > rightH) {
-            return leftH;
-        } else {
-            return rightH;
+            traverseTreePreorder(current.getRight(), f);
         }
     }
 }
