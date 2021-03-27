@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Translator {
     Dictionary dictionary;
@@ -18,26 +19,27 @@ public class Translator {
     public void translateText(String text) {
         StringBuilder s = new StringBuilder();
         String[] sentences = text.split("[/\\\n(){}[/].,;]");
-        for (String sentence : sentences) {
-
+        Stream<String> sentenceStream = Arrays.stream(sentences);
+        String result[] = sentenceStream.parallel().map(sentence -> {
             // * Check if the sentence is too long and would take too long to translate into
             // phrases recursively
             String sentArr[] = sentence.split(" ");
             if (sentArr.length > maxNumberOfWordInASentence) {
                 // Translate them word by word
-                for (String phrase : sentArr) {
-                    s.append(" " + dictionary.translatePhrase(phrase));
-                }
+                return String.join(" ", Arrays.stream(sentArr).parallel()
+                        .map(phrase -> dictionary.translatePhrase(phrase)).toArray(String[]::new));
+
             } else {
                 // use the sentence translator
                 SentenceTranslator sentenceTranslator = new SentenceTranslator(sentence, dictionary);
-                s.append(sentenceTranslator.translateSentence());
+                return sentenceTranslator.translateSentence();
             }
-            s.append(". ");
-        }
+
+        }).toArray(String[]::new);
+        String finalString = String.join(". ", result);
         System.out.println("");
         System.out.println("Translator finished");
-        System.out.println(s);
+        System.out.println(finalString);
     }
 
 }
