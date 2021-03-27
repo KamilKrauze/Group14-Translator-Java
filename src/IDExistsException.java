@@ -5,6 +5,11 @@
  * @version 01.03.2021
  */
 public class IDExistsException extends Exception {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     public IDExistsException() {
     }
 }

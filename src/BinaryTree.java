@@ -1,4 +1,4 @@
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 /**
  * The class representing the binary tree and containing all the methods for
@@ -61,7 +61,7 @@ public class BinaryTree<T> {
             }
         }
 
-        if (previous.getid() < node.getid()) {
+        if (previous.getid() < node.getid()) { // NOSONAR this actually cant be null, but the linter is dumb
             previous.setRight(node);
         } else {
             previous.setLeft(node);
@@ -141,42 +141,27 @@ public class BinaryTree<T> {
         if (root == null) {
             throw new NodeDoesntExistException();
         }
-        TreeNode<T> current = root;
-        TreeNode<T> previous = current;
 
-        while (current.getid() != id) {
-            previous = current;
-            if (current.getid() < id) {
-                current = current.getRight();
-            } else {
-                current = current.getLeft();
-            }
-            if (current == null) {
-                throw new NodeDoesntExistException();
-            }
-        }
-
+        this.getToDeleteNode(id);
         // Found the toDelete node
-        // The deletion process
-        toDelete = current;
-        parent = previous;
 
+        // The deletion process
         if (toDelete.getLeft() == null && toDelete.getRight() == null) {
             // Both children of toDelete are null
-            this.deleteHelper(null);
+            this.replaceNodeWith(null);
         } else if (toDelete.getLeft() == null) {
             // Only left child of toDelet is null
-            this.deleteHelper(toDelete.getRight());
+            this.replaceNodeWith(toDelete.getRight());
 
         } else if (toDelete.getRight() == null) {
             // Only right child of toDelet is null
-            this.deleteHelper(toDelete.getLeft());
+            this.replaceNodeWith(toDelete.getLeft());
 
         } else {
             // both child of todelete exist
 
-            current = toDelete.getLeft();
-            previous = null;
+            TreeNode<T> current = toDelete.getLeft();
+            TreeNode<T> previous = null;
             while (current.getRight() != null) {
                 previous = current;
                 current = current.getRight();
@@ -195,20 +180,51 @@ public class BinaryTree<T> {
             current.setLeft(toDelete.getLeft());
 
             // replace toDelete with current
-            this.deleteHelper(current);
+            this.replaceNodeWith(current);
 
         }
 
     }
 
-    private void deleteHelper(TreeNode<T> toReplace) {
+    /**
+     * Helper function for node deletion. Gets the toDeleteNode and its parent.
+     * @param id of the node to find
+     * @throws NodeDoesntExistException if node with given id doesnt exist
+     */
+    private void getToDeleteNode(int id) throws NodeDoesntExistException {
+        TreeNode<T> current = root;
+        TreeNode<T> previous = root;
+
+        while (current.getid() != id) {
+            previous = current;
+            if (current.getid() < id) {
+                current = current.getRight();
+            } else {
+                current = current.getLeft();
+            }
+            if (current == null) {
+                throw new NodeDoesntExistException();
+            }
+        }
+        toDelete = current;
+        parent = previous;
+
+    }
+
+    /**
+     * Helper function which deletes the node, replacing its parent's appropriate
+     * child with the given value
+     * 
+     * @param replacer the node which will replace the node to be deleted
+     */
+    private void replaceNodeWith(TreeNode<T> replacer) {
         if (root == toDelete) {
             // if so there will be no parent
-            root = toReplace;
+            root = replacer;
         } else if (parent.getid() < toDelete.getid()) {
-            parent.setRight(toReplace);
+            parent.setRight(replacer);
         } else {
-            parent.setLeft(toReplace);
+            parent.setLeft(replacer);
         }
     }
 
@@ -228,10 +244,10 @@ public class BinaryTree<T> {
      * @param current currently being checked
      * @param f       function to execute on each node
      */
-    protected void traverseTreeInorder(TreeNode<T> current, Function f) {
+    protected void traverseTreeInorder(TreeNode<T> current, Consumer<T> f) {
         if (current != null) {
             traverseTreeInorder(current.getLeft(), f);
-            f.apply(current.getValue());
+            f.accept(current.getValue());
             traverseTreeInorder(current.getRight(), f);
         }
     }
@@ -252,14 +268,14 @@ public class BinaryTree<T> {
      * @param current currently being checked
      * @param f       function to execute on each node
      */
-    protected void traverseTreePostorder(TreeNode<T> current, Function f) {
+    protected void traverseTreePostorder(TreeNode<T> current, Consumer<T> f) {
         if (current.getLeft() != null) {
             traverseTreeInorder(current.getLeft(), f);
         }
         if (current.getRight() != null) {
             traverseTreeInorder(current.getRight(), f);
         }
-        f.apply(current.getValue());
+        f.accept(current.getValue());
     }
 
     /**
@@ -268,7 +284,7 @@ public class BinaryTree<T> {
      */
     public String getPreorderString() {
         StringBuilder s = new StringBuilder();
-        traverseTreePostorder(root, x -> s.append(x + " "));
+        traverseTreePreorder(root, x -> s.append(x + " "));
         return s.toString();
     }
 
@@ -278,8 +294,8 @@ public class BinaryTree<T> {
      * @param current currently being checked
      * @param f       function to execute on each node
      */
-    protected void traverseTreePreorder(TreeNode<T> current, Function f) {
-        f.apply(current.getValue());
+    protected void traverseTreePreorder(TreeNode<T> current, Consumer<T> f) {
+        f.accept(current.getValue());
         if (current.getLeft() != null) {
             traverseTreeInorder(current.getLeft(), f);
         }
@@ -294,7 +310,7 @@ public class BinaryTree<T> {
      * @param node the node to check
      * @return int height
      */
-    private int getHeight(TreeNode node) {
+    private int getHeight(TreeNode<T> node) {
         if (node == null) {
             return 0;
         }

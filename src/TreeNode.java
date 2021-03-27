@@ -6,7 +6,7 @@
  * @version 01.03.2021
  */
 public class TreeNode<T> {
-    // TreeNode<T> parent;
+    TreeNode<T> parent;
 
     TreeNode<T> left;
     TreeNode<T> right;

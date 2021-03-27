@@ -29,7 +29,7 @@ public class Tester {
             tree.add(new TreeNode<Integer>(1, 1));
             tree.add(new TreeNode<Integer>(5, 5));
         } catch (Exception e) {
-
+            // NOSONAR
         }
         System.out.println(tree);
 
