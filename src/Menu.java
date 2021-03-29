@@ -25,7 +25,7 @@ public class Menu extends JFrame {
 	{
 		int panelOffset = 60;
 		
-////////////////////////PANELS////////////////////////////////////////
+//////////////////////// PANELS ////////////////////////////////////////
 		JPanel panelMain = new JPanel();
 		panelMain.setBackground(Color.gray);
 		panelMain.setBounds(0,0,800,600);
@@ -66,7 +66,7 @@ public class Menu extends JFrame {
 		btnPanel.setBounds(25,490,725,60);
 		btnPanel.setLayout(null);
 		
-////////////////////////////////PANEL COMPONENTS////////////////////////////////////////
+//////////////////////////////// PANEL COMPONENTS ////////////////////////////////////////
 		
 		JComboBox initLangBox = new JComboBox(langList);
 		initLangBox.setSelectedIndex(0);
