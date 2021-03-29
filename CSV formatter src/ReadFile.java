@@ -6,36 +6,24 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Kamil Krauze - Student ID: 2414951
+ *
+ * @version 28/03/2021
+ */
 public class ReadFile {
 
+	/**
+	 * <p>Global ArrayLists that separately store the English & Spanish words, and their word classes.</p>
+	 */
 	private ArrayList<String> ENword = new ArrayList<String>();
 	private ArrayList<String> ESword = new ArrayList<String>();
 	private ArrayList<String> wordClass = new ArrayList<String>();
 	
-	public ArrayList<String> getENword() {
-		return ENword;
-	}
-
-	public void setENword(ArrayList<String> eNword) {
-		ENword = eNword;
-	}
-
-	public ArrayList<String> getESword() {
-		return ESword;
-	}
-
-	public void setESword(ArrayList<String> eSword) {
-		ESword = eSword;
-	}
-
-	public ArrayList<String> getWordClass() {
-		return wordClass;
-	}
-
-	public void setWordClass(ArrayList<String> wordClass) {
-		this.wordClass = wordClass;
-	}
-
+	/**
+	 * <p>A method that reads in all of the lines of the specified csv file and stores each column per line to the array lists. Afterwards it creates a new file and writes to it per line.</p>
+	 */
 	public void ReadAndFormat()
 	{
 		FileReader fileReader;
