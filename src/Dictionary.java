@@ -4,6 +4,10 @@ public class Dictionary {
 
     }
 
+    public void loadDictionaryFromCSV() {
+        
+    }
+
     /**
      * Returns String if the exact phrase exists in the dictionary Returns null if
      * doesnt

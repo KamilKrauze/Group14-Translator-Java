@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 public class Translator {
@@ -17,7 +15,6 @@ public class Translator {
     }
 
     public void translateText(String text) {
-        StringBuilder s = new StringBuilder();
         String[] sentences = text.split("[/\\\n(){}[/].,;]");
         Stream<String> sentenceStream = Arrays.stream(sentences);
         String result[] = sentenceStream.parallel().map(sentence -> {
