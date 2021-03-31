@@ -181,12 +181,12 @@ public class Menu extends JFrame {
 		panelMain.setLayout(null);
 		
 		JPanel langPanel = new JPanel();
-		langPanel.setBackground(Color.BLUE);
+		langPanel.setBackground(Color.gray);
 		langPanel.setBounds(5,5,775,475);
 		langPanel.setLayout(null);
 		
 		JPanel btnPanel = new JPanel();
-		btnPanel.setBackground(Color.RED);
+		btnPanel.setBackground(Color.gray);
 		btnPanel.setBounds(5,485,775,60);
 		btnPanel.setLayout(null);
 		
