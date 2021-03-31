@@ -1,6 +1,12 @@
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+/**
+ * The main translator class
+ *
+ * @author Vojtěch Loskot
+ * @version 31.03.2021
+ */
 public class Translator {
     Dictionary dictionary;
     int maxNumberOfWordInASentence = 50;
@@ -14,6 +20,15 @@ public class Translator {
         dictionary = new Dictionary();
     }
 
+    /**
+     * Translates the given text.
+     * 
+     * Splits the text into sentences and uses the sentenseTranslation recursive
+     * algorithm to smartly translate each one. Uses streams and paralelization to
+     * translate each sentence simultaneously.
+     * 
+     * @param text to translate
+     */
     public void translateText(String text) {
         String[] sentences = text.split("[/\\\n(){}[/].,;]");
         Stream<String> sentenceStream = Arrays.stream(sentences);

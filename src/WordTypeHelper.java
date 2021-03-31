@@ -1,6 +1,15 @@
+/**
+ * 
+ *
+ * @author Vojtěch Loskot
+ * @version 31.03.2021
+ */
 public class WordTypeHelper {
 
-
+    /** 
+     * @param s
+     * @return WordType
+     */
     public static WordType getWordType(String s) {
         switch (s) {
         case "n":
