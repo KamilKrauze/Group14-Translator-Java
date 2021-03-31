@@ -1,8 +1,9 @@
+import java.util.Objects;
+
 public class DictionaryEntry {
     private String word;
     private String translation;
     private WordType wordType;
-
 
     public DictionaryEntry(String word, String translation, WordType wordType) {
         this.word = word;
@@ -10,10 +11,21 @@ public class DictionaryEntry {
         this.wordType = wordType;
     }
 
-    public DictionaryEntry(String word, String translation, String wordType) throws {
-        this.word = word;
-        this.translation = translation;
-        this.wordType = WordTypeHelper.get;
+    public DictionaryEntry(String word, String translation, String wordType) throws IllegalArgumentException {
+        if (word == null)
+            throw new IllegalArgumentException(word);
+        else
+            this.word = word.trim().toLowerCase();
+
+        if (translation == null)
+            throw new IllegalArgumentException(translation);
+        else
+            this.translation = translation.trim();
+
+        if (wordType == null)
+            throw new IllegalArgumentException(wordType);
+        else
+            this.wordType = WordTypeHelper.getWordType(wordType.trim());
     }
 
     public String getWord() {
@@ -24,11 +36,11 @@ public class DictionaryEntry {
         this.word = word;
     }
 
-    public String gettranslation() {
+    public String getTranslation() {
         return this.translation;
     }
 
-    public void settranslation(String translation) {
+    public void setTranslation(String translation) {
         this.translation = translation;
     }
 
@@ -40,7 +52,6 @@ public class DictionaryEntry {
         this.wordType = wordType;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -49,7 +60,8 @@ public class DictionaryEntry {
             return false;
         }
         DictionaryEntry dictionaryEntry = (DictionaryEntry) o;
-        return Objects.equals(word, dictionaryEntry.word) && Objects.equals(translation, dictionaryEntry.translation) && Objects.equals(wordType, dictionaryEntry.wordType);
+        return Objects.equals(word, dictionaryEntry.word) && Objects.equals(translation, dictionaryEntry.translation)
+                && Objects.equals(wordType, dictionaryEntry.wordType);
     }
 
     @Override
@@ -59,11 +71,7 @@ public class DictionaryEntry {
 
     @Override
     public String toString() {
-        return "{" +
-            " word='" + getWord() + "'" +
-            ", translation='" + gettranslation() + "'" +
-            ", wordType='" + getWordType() + "'" +
-            "}";
+        return getWord() + "," + getTranslation() + "," + getWordType();
     }
 
 }

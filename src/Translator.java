@@ -17,10 +17,10 @@ public class Translator {
     public void translateText(String text) {
         String[] sentences = text.split("[/\\\n(){}[/].,;]");
         Stream<String> sentenceStream = Arrays.stream(sentences);
-        String result[] = sentenceStream.parallel().map(sentence -> {
+        String[] result = sentenceStream.parallel().map(sentence -> {
             // * Check if the sentence is too long and would take too long to translate into
             // phrases recursively
-            String sentArr[] = sentence.split(" ");
+            String[] sentArr = sentence.split(" ");
             if (sentArr.length > maxNumberOfWordInASentence) {
                 // Translate them word by word
                 return String.join(" ", Arrays.stream(sentArr).parallel()
