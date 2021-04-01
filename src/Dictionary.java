@@ -17,6 +17,7 @@ import java.io.PrintWriter;
  */
 public class Dictionary {
     BalancedBinaryTree<DictionaryEntry> tree;
+    String fileName;
     String[] verbPrefixes;
     String[] verbSuffixes = { "ed", "s", "en" }; // english
 
@@ -36,9 +37,8 @@ public class Dictionary {
      */
     public Dictionary(String file) {
         tree = new BalancedBinaryTree<DictionaryEntry>();
-        // loadDictionaryFromCSV(file);
+        fileName = file;
         loadFromFile();
-        saveToFile();
     }
 
     /**
@@ -75,7 +75,7 @@ public class Dictionary {
      * Saves the dictionary to a file so that it can be loaded later
      */
     public void saveToFile() {
-        try (PrintWriter writer = new PrintWriter("dictionary.txt")) {
+        try (PrintWriter writer = new PrintWriter(this.fileName)) {
             writer.println(String.join(", ", verbPrefixes));
             writer.println(String.join(", ", verbSuffixes));
             tree.traverseTreeInorder(tree.getRoot(), s -> writer.printf("%s,%s%n", s.getid(), s.getValue().toString()));
@@ -89,7 +89,7 @@ public class Dictionary {
      * method.
      */
     public void loadFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("dictionary.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.fileName))) {
             verbPrefixes = reader.readLine().split(", ");
             verbSuffixes = reader.readLine().split(", ");
             String line = reader.readLine();
@@ -126,6 +126,37 @@ public class Dictionary {
      */
     public void addEntry(DictionaryEntry entry) throws IDExistsException {
         tree.add(new TreeNode<DictionaryEntry>(entry, getHashCode(entry.getWord())));
+    }
+
+    /**
+     * Changes the translation of the word from its current translation to the new
+     * translation
+     * 
+     * @param word        the word used to lookup the dictionary entry
+     * @param translation the new translation of the word
+     * @throws NodeDoesntExistException if No node with such id exists
+     * @return the updated dictionary entry
+     */
+    public DictionaryEntry modifyEntry(String word, String translation) throws NodeDoesntExistException {
+        int id = getHashCode(word);
+        DictionaryEntry entry = tree.getNodeById(id);
+        entry.setTranslation(translation);
+        tree.updateNode(id, entry);
+        return entry;
+    }
+
+    /**
+     * Removes the entry from the dictionary
+     * 
+     * @param word the word to remove
+     * @throws NodeDoesntExistException if No node with such id exists
+     * @return the removed dictionary entry
+     */
+    public DictionaryEntry deleteEntry(String word) throws NodeDoesntExistException {
+        int id = getHashCode(word);
+        DictionaryEntry entry = tree.getNodeById(id);
+        tree.deleteNode(id);
+        return entry;
     }
 
     /**
@@ -180,4 +211,79 @@ public class Dictionary {
             return null;
         }
     }
+
+    /**
+     * The binary tree which contains all the dictionary entries used to perform
+     * translations
+     * 
+     * @return BalancedBinaryTree<DictionaryEntry>
+     */
+    public BalancedBinaryTree<DictionaryEntry> getTree() {
+        return this.tree;
+    }
+
+    /**
+     * The binary tree which contains all the dictionary entries used to perform
+     * translations
+     * 
+     * @param tree
+     */
+    public void setTree(BalancedBinaryTree<DictionaryEntry> tree) {
+        this.tree = tree;
+    }
+
+    /**
+     * The filename from which the dictionary is loaded and to which it is saved
+     * 
+     * @return String
+     */
+    public String getFileName() {
+        return this.fileName;
+    }
+
+    /**
+     * The filename from which the dictionary is loaded and to which it is saved
+     * 
+     * @param fileName
+     */
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    /**
+     * The recognized verb prefixes for this language
+     * 
+     * @return String[]
+     */
+    public String[] getVerbPrefixes() {
+        return this.verbPrefixes;
+    }
+
+    /**
+     * The recognized verb prefixes for this language
+     * 
+     * @param verbPrefixes
+     */
+    public void setVerbPrefixes(String[] verbPrefixes) {
+        this.verbPrefixes = verbPrefixes;
+    }
+
+    /**
+     * The recognized verb suffixes for this language
+     * 
+     * @return String[]
+     */
+    public String[] getVerbSuffixes() {
+        return this.verbSuffixes;
+    }
+
+    /**
+     * The recognized verb suffixes for this language
+     * 
+     * @param verbSuffixes
+     */
+    public void setVerbSuffixes(String[] verbSuffixes) {
+        this.verbSuffixes = verbSuffixes;
+    }
+
 }
