@@ -9,7 +9,7 @@ import java.awt.event.*;
 /**
  * 
  * @author Kamil Krauze
- * 
+ * @version 31/03/2021
  */
 public class Menu extends JFrame {
 	
