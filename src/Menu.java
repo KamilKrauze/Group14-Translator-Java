@@ -84,12 +84,15 @@ public class Menu extends JFrame {
 		greeting.setVerticalAlignment(JLabel.BOTTOM);
 		greeting.setHorizontalAlignment(JLabel.RIGHT);
 		
-		JTextArea translatee = new JTextArea();
-		translatee.setBounds(5,5,340,315);
-		translatee.setFont(new Font("Verdana", Font.PLAIN, 15));
-		translatee.setText("Enter here the text you want to translate.");
-		translatee.setLineWrap(true);
-		translatee.setWrapStyleWord(true);
+		JTextArea toTranslate = new JTextArea();
+		toTranslate.setBounds(5,5,340,315);
+		toTranslate.setFont(new Font("Verdana", Font.PLAIN, 15));
+		toTranslate.setText("Enter here the text you want to translate.");
+		toTranslate.setLineWrap(true);
+		toTranslate.setWrapStyleWord(true);
+		
+		JScrollPane TranslateScroll = new JScrollPane(toTranslate);
+		TranslateScroll.setBounds(0,5,340,315);
 		
 		JTextArea translated = new JTextArea();
 		translated.setBounds(5,5,340,315);
@@ -97,6 +100,9 @@ public class Menu extends JFrame {
 		translated.setText("The translated text will be outputted here.");
 		translated.setLineWrap(true);
 		translated.setWrapStyleWord(true);
+		
+		JScrollPane TranslatedScroll = new JScrollPane(translated);
+		TranslatedScroll.setBounds(5,5,340,315);
 		
 		JButton translateBTN = new JButton();
 		translateBTN.setBounds(310,5,100,50);
@@ -146,10 +152,11 @@ public class Menu extends JFrame {
 				newLang.add(newLangBox);
 			
 		menu.add(panel1);
-			panel1.add(translatee);
+			panel1.add(this.add(TranslateScroll));
+			
 		
 		menu.add(panel2);
-			panel2.add(translated);
+			panel2.add(this.add(TranslatedScroll));
 		
 		menu.add(translate);
 			translate.add(translateBTN);
@@ -174,12 +181,12 @@ public class Menu extends JFrame {
 		panelMain.setLayout(null);
 		
 		JPanel langPanel = new JPanel();
-		langPanel.setBackground(Color.BLUE);
+		langPanel.setBackground(Color.gray);
 		langPanel.setBounds(5,5,775,475);
 		langPanel.setLayout(null);
 		
 		JPanel btnPanel = new JPanel();
-		btnPanel.setBackground(Color.RED);
+		btnPanel.setBackground(Color.gray);
 		btnPanel.setBounds(5,485,775,60);
 		btnPanel.setLayout(null);
 		
@@ -188,6 +195,10 @@ public class Menu extends JFrame {
 		phraseBox.setFont(new Font("Verdana", Font.PLAIN, 18));
 		phraseBox.setLineWrap(true);
 		phraseBox.setWrapStyleWord(true);
+		phraseBox.setText("");
+		
+		JScrollPane phraseScroll = new JScrollPane(phraseBox);
+		phraseScroll.setBounds(1,1,773,473);
 		
 		JButton ConfirmBTN = new JButton();
 		ConfirmBTN.setBounds(270,5,100,50);
@@ -199,8 +210,6 @@ public class Menu extends JFrame {
 		ApplyBTN.setText("Apply");
 		ApplyBTN.setToolTipText("Apply your current modifications");
 		
-		JScrollPane scrollBar1 = new JScrollPane(phraseBox, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,  JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
 		JFrame modMenu = new JFrame();
 		modMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		modMenu.setLayout(null);
@@ -211,8 +220,7 @@ public class Menu extends JFrame {
 		
 		modMenu.add(panelMain);
 			panelMain.add(langPanel);
-				langPanel.add(phraseBox);
-				langPanel.add(scrollBar1);
+				langPanel.add(this.add(phraseScroll));
 			panelMain.add(btnPanel);
 				btnPanel.add(ConfirmBTN);
 				btnPanel.add(ApplyBTN);
