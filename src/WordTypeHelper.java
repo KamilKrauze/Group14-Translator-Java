@@ -12,18 +12,28 @@ public class WordTypeHelper {
      */
     public static WordType getWordType(String s) {
         switch (s) {
+        case "adj":
+            return WordType.ADJECTIVE;
         case "n":
             return WordType.NOUN;
         case "v":
             return WordType.VERB;
-        case "adj":
-            return WordType.ADJECTIVE;
         case "prop":
             return WordType.PREPOSITION;
         case "adv":
             return WordType.ADVERB;
         case "prep":
             return WordType.PREPOSITION;
+        case "pron":
+        	return WordType.PRONOUN;
+        case "conj":
+        	return WordType.CONJUNCTION;
+        case "detr":
+        	return WordType.DETERMINER;
+        case "excl":
+        	return WordType.EXCLAMATION;
+        case "intj":
+        	return WordType.INTERJECTION;
         case "":
             return WordType.NONE;
 

@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
 
+import javax.swing.JOptionPane;
+
 /**
  * The dictionary class, containing the binary search tree with all the words.
  * 
@@ -61,13 +63,15 @@ public class Dictionary {
                     }
                 } catch (IDExistsException e) {
                     // System.out.printf("Error: %s when parsing line: %s%n", e, line);
-                } catch (Exception e) { // NOSONAR
-                    System.out.printf("Error: %s when parsing line: %s%n", e, line);
+                } catch (Exception e) {
+                	JOptionPane.showMessageDialog(null, "Error: \s when parsing line: \s\n"+ e+ line, "Added translation" , JOptionPane.WARNING_MESSAGE);
+                    System.out.printf("Error: \s when parsing line: \s\n", e, line);
                 }
                 line = reader.readLine();
             }
         } catch (Exception e) {
-            System.out.printf("Error: %s when parsing file: %s%n", e, filePath);
+        	JOptionPane.showMessageDialog(null, "Error: \s when parsing file: \s\n "+ e + filePath, "Added translation" , JOptionPane.INFORMATION_MESSAGE);// NOSONAR
+            System.out.printf("Error: \s when parsing file: \s\n", e, filePath);
         }
     }
 
@@ -107,6 +111,8 @@ public class Dictionary {
                     tree.addUnbalanced(new TreeNode<DictionaryEntry>(dictEnt, id));
                 } catch (Exception e) { // NOSONAR
                     System.out.printf("Error: %s when trying to read file: %s%n", e, "");
+					JOptionPane.showMessageDialog(null, "Error: \s when trying to read file: \s\n"+e, "Warning" , JOptionPane.WARNING_MESSAGE);
+
 
                 }
                 tree.balanceTree();
@@ -114,6 +120,7 @@ public class Dictionary {
             }
         } catch (Exception e) {
             System.out.printf("Error: %s when trying to read file: %s%n", e, "");
+            JOptionPane.showMessageDialog(null,"Error: \s when trying to read file: \s\n"+e,"Warning",JOptionPane.WARNING_MESSAGE);
 
         }
     }

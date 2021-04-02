@@ -21,6 +21,11 @@ public class Menu extends JFrame {
 
 	public static void main(String[] Args)
 	{
+		Dictionary dictionary = new Dictionary("dictionary.txt");
+		dictionary.loadFromFile();
+		
+		
+		
 		Menu menu = new Menu();
 		menu.mainMenu();
 	}
@@ -111,6 +116,21 @@ public class Menu extends JFrame {
 		translateBTN.setBounds(310,5,100,50);
 		translateBTN.setText("Translate");
 		translateBTN.setToolTipText("Translate your text");
+		translateBTN.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				String action = ae.getActionCommand();
+				if(action.equals("Translate"))
+				{
+					Translator translator = new Translator();
+					translated.setText(translator.translateText(toTranslate.getText()));
+					JOptionPane.showMessageDialog(null, "Translation Complete", "Completed Translation" , JOptionPane.PLAIN_MESSAGE);
+				}
+			}
+		});
+		translateBTN.setActionCommand("Translate");
 
 		int btnOffset = 150;
 

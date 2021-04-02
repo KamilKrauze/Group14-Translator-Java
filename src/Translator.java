@@ -78,7 +78,7 @@ public class Translator {
      * 
      * @param text to translate
      */
-    public void translateText(String text) {
+    public String translateText(String text) {
         String[] sentences = text.split("[/\\\n(){}[/].,;]");
         Stream<String> sentenceStream = Arrays.stream(sentences);
         String[] result = sentenceStream.parallel().map(sentence -> {
@@ -98,7 +98,7 @@ public class Translator {
         String finalString = String.join(". ", result);
         System.out.println("");
         System.out.println("Translator finished");
-        System.out.println(finalString);
+        return finalString;
     }
 
 }
