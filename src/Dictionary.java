@@ -78,7 +78,8 @@ public class Dictionary {
         try (PrintWriter writer = new PrintWriter(this.fileName)) {
             writer.println(String.join(", ", verbPrefixes));
             writer.println(String.join(", ", verbSuffixes));
-            tree.traverseTreePreorder(tree.getRoot(), s -> writer.printf("%s,%s%n", s.getid(), s.getValue().toString()));
+            tree.traverseTreePreorder(tree.getRoot(),
+                    s -> writer.printf("%s,%s%n", s.getid(), s.getValue().toString()));
         } catch (Exception e) {
             System.out.printf("Error: %s when trying to save file: %s%n", e, "");
         }
@@ -198,12 +199,14 @@ public class Dictionary {
      * @return String
      */
     public String translateVerb(String phrase) {
+        System.out.printf("Orignial phrase: %s", phrase);
         for (String s : verbPrefixes) {
-            phrase = phrase.replaceAll(s, "");
+            phrase = phrase.replaceAll("/w" + s, "");
         }
         for (String s : verbSuffixes) {
-            phrase = phrase.replaceAll(s, "");
+            phrase = phrase.replaceAll(s + "/w", "");
         }
+        System.out.printf(". Without verb modifiers: %s5n", phrase);
         try {
             DictionaryEntry translation = tree.getNodeById(phrase.hashCode());
             return translation.getTranslation();
