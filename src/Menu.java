@@ -338,22 +338,18 @@ public class Menu extends JFrame {
 		label1.setBounds(15,3,173,25);
 		label1.setText("English word:");
 
-		JTextArea EngBox = new JTextArea();
+		JTextField EngBox = new JTextField();
 		EngBox.setBounds(15,25,173,25);
 		EngBox.setFont(new Font("Verdana", Font.PLAIN, 18));
-		EngBox.setLineWrap(true);
-		EngBox.setWrapStyleWord(true);
 		EngBox.setText("");
 
 		JLabel label2 = new JLabel();
 		label2.setBounds(15,78,173,25);
 		label2.setText("Spanish word:");
 
-		JTextArea EspBox = new JTextArea();
+		JTextField EspBox = new JTextField();
 		EspBox.setBounds(15,100,173,25);
 		EspBox.setFont(new Font("Verdana", Font.PLAIN, 18));
-		EspBox.setLineWrap(true);
-		EspBox.setWrapStyleWord(true);
 		EspBox.setText("");
 
 		JLabel label3 = new JLabel();
@@ -445,22 +441,18 @@ public class Menu extends JFrame {
 		label1.setBounds(15,3,173,25);
 		label1.setText("English word:");
 
-		JTextArea EngBox = new JTextArea();
+		JTextField EngBox = new JTextField();
 		EngBox.setBounds(15,25,173,25);
 		EngBox.setFont(new Font("Verdana", Font.PLAIN, 18));
-		EngBox.setLineWrap(true);
-		EngBox.setWrapStyleWord(true);
 		EngBox.setText("");
 
 		JLabel label2 = new JLabel();
 		label2.setBounds(15,78,173,25);
 		label2.setText("Spanish word:");
 
-		JTextArea EspBox = new JTextArea();
+		JTextField EspBox = new JTextField();
 		EspBox.setBounds(15,100,173,25);
 		EspBox.setFont(new Font("Verdana", Font.PLAIN, 18));
-		EspBox.setLineWrap(true);
-		EspBox.setWrapStyleWord(true);
 		EspBox.setText("");
 
 		JLabel label3 = new JLabel();
@@ -550,22 +542,18 @@ public class Menu extends JFrame {
 		label1.setBounds(15,3,173,25);
 		label1.setText("English word:");
 
-		JTextArea EngBox = new JTextArea();
+		JTextField EngBox = new JTextField();
 		EngBox.setBounds(15,25,173,25);
 		EngBox.setFont(new Font("Verdana", Font.PLAIN, 18));
-		EngBox.setLineWrap(true);
-		EngBox.setWrapStyleWord(true);
 		EngBox.setText("");
 
 		JLabel label2 = new JLabel();
 		label2.setBounds(15,78,173,25);
 		label2.setText("Spanish word:");
 
-		JTextArea EspBox = new JTextArea();
+		JTextField EspBox = new JTextField();
 		EspBox.setBounds(15,100,173,25);
 		EspBox.setFont(new Font("Verdana", Font.PLAIN, 18));
-		EspBox.setLineWrap(true);
-		EspBox.setWrapStyleWord(true);
 		EspBox.setText("");
 
 		JLabel label3 = new JLabel();
