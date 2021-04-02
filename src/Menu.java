@@ -9,16 +9,34 @@ import java.awt.event.*;
 /**
  * 
  * @author Kamil Krauze
- * @version 31/03/2021
+ * @version 02/04/2021
  */
 public class Menu extends JFrame {
 	
-	String[] langList = {"English", "Spanish"}; 
+	enum wordClass
+	{
+		Adjective,
+		Adverb,
+		Conjuction,
+		Determiner,
+		Exclamation,
+		Noun,
+		Pronoun,
+		Verb,
+		Preposition,
+		Interjection
+	}
+	
+	enum langList
+	{
+		English,
+		Spanish
+	}
 	
 	public static void main(String[] Args)
 	{
 		Menu menu = new Menu();
-		menu.modifyMenu();
+		menu.addMenu();
 	}
 	
 	public void mainMenu()
@@ -68,12 +86,11 @@ public class Menu extends JFrame {
 		
 //////////////////////////////// PANEL COMPONENTS ////////////////////////////////////////
 		
-		JComboBox initLangBox = new JComboBox(langList);
+		JComboBox initLangBox = new JComboBox(langList.values());
 		initLangBox.setSelectedIndex(0);
 		initLangBox.setBounds(5,0,150,40);
-		//languages.addActionListener(this);
 		
-		JComboBox newLangBox = new JComboBox(langList);
+		JComboBox newLangBox = new JComboBox(langList.values());
 		newLangBox.setSelectedIndex(1);
 		newLangBox.setBounds(5,0,150,40);
 		
@@ -130,6 +147,19 @@ public class Menu extends JFrame {
 		modify.setBounds(320+btnOffset,5,100,50);
 		modify.setText("Modify");
 		modify.setToolTipText("Modify the translation");
+		modify.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				String action = ae.getActionCommand();
+				if(action.equals("Modify"))
+				{
+					modifyMenu();
+				}
+			}
+		});
+		modify.setActionCommand("Modify");
 		
 //////////////////// APP FRAME ///////////////////////////////////	
 	
@@ -175,6 +205,15 @@ public class Menu extends JFrame {
 	
 	public void modifyMenu()
 	{
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		
+		Dimension dim = kit.getScreenSize();
+		
+		int xPos = (dim.width / 2) - (this.getWidth() / 2);
+		int yPos = (dim.height / 2) - (this.getHeight() / 2);
+
+		this.setLocation(xPos, yPos);
+		
 		JPanel panelMain = new JPanel();
 		panelMain.setBackground(Color.gray);
 		panelMain.setBounds(0,0,800,600);
@@ -201,14 +240,65 @@ public class Menu extends JFrame {
 		phraseScroll.setBounds(1,1,773,473);
 		
 		JButton ConfirmBTN = new JButton();
-		ConfirmBTN.setBounds(270,5,100,50);
+		ConfirmBTN.setBounds(480,5,100,50);
 		ConfirmBTN.setText("Confirm");
 		ConfirmBTN.setToolTipText("Confirm your current modifications");
 		
 		JButton ApplyBTN = new JButton();
-		ApplyBTN.setBounds(375,5,100,50);
+		ApplyBTN.setBounds(585,5,100,50);
 		ApplyBTN.setText("Apply");
 		ApplyBTN.setToolTipText("Apply your current modifications");
+		
+		JButton AddBTN = new JButton();
+		AddBTN.setBounds(165,5,100,50);
+		AddBTN.setText("Add");
+		AddBTN.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				String action = ae.getActionCommand();
+				if(action.equals("Add"))
+				{
+					addMenu();
+				}
+			}
+		});
+		AddBTN.setActionCommand("Add");
+		
+		JButton DelBTN = new JButton();
+		DelBTN.setBounds(60,5,100,50);
+		DelBTN.setText("Delete");
+		DelBTN.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				String action = ae.getActionCommand();
+				if(action.equals("Delete"))
+				{
+					DeleteMenu();
+				}
+			}
+		});
+		DelBTN.setActionCommand("Delete");
+		
+		JButton EditBTN = new JButton();
+		EditBTN.setBounds(270,5,100,50);
+		EditBTN.setText("Edit");
+		EditBTN.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				String action = ae.getActionCommand();
+				if(action.equals("Edit"))
+				{
+					EditMenu();
+				}
+			}
+		});
+		EditBTN.setActionCommand("Edit");
 		
 		JFrame modMenu = new JFrame();
 		modMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -222,9 +312,265 @@ public class Menu extends JFrame {
 			panelMain.add(langPanel);
 				langPanel.add(this.add(phraseScroll));
 			panelMain.add(btnPanel);
+				btnPanel.add(AddBTN);
+				btnPanel.add(DelBTN);
+				btnPanel.add(EditBTN);
 				btnPanel.add(ConfirmBTN);
 				btnPanel.add(ApplyBTN);
 		
 		modMenu.setVisible(true);
 	}
+	
+	public void addMenu()
+	{
+		
+		JPanel panelMain = new JPanel();
+		panelMain.setBackground(Color.gray);
+		panelMain.setBounds(0,0,400,300);
+		panelMain.setLayout(null);
+		
+		JPanel langPanel = new JPanel();
+		langPanel.setBackground(Color.gray);
+		langPanel.setBounds(5,5,375,250);
+		langPanel.setLayout(null);
+		
+		JLabel label1 = new JLabel();
+		label1.setBounds(15,3,173,25);
+		label1.setText("English word:");
+		
+		JTextArea EngBox = new JTextArea();
+		EngBox.setBounds(15,25,173,25);
+		EngBox.setFont(new Font("Verdana", Font.PLAIN, 18));
+		EngBox.setLineWrap(true);
+		EngBox.setWrapStyleWord(true);
+		EngBox.setText("");
+		
+		JLabel label2 = new JLabel();
+		label2.setBounds(15,78,173,25);
+		label2.setText("Spanish word:");
+		
+		JTextArea EspBox = new JTextArea();
+		EspBox.setBounds(15,100,173,25);
+		EspBox.setFont(new Font("Verdana", Font.PLAIN, 18));
+		EspBox.setLineWrap(true);
+		EspBox.setWrapStyleWord(true);
+		EspBox.setText("");
+		
+		JLabel label3 = new JLabel();
+		label3.setBounds(15,153,173,25);
+		label3.setText("Word class:");
+		
+		JComboBox WordClassBox = new JComboBox(wordClass.values());
+		WordClassBox.setSelectedIndex(0);
+		WordClassBox.setBounds(15,175,173,25);
+		
+		JButton button1 = new JButton();
+		button1.setBounds(225,25,125,75);
+		button1.setText("Add");
+		button1.setToolTipText("Please add text to all text fields then press this button to add your word to the dictionary.");
+		button1.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				String action = ae.getActionCommand();
+				if(action.equals("AddWord"))
+				{
+					//Add to dictionary
+					JOptionPane.showMessageDialog(null, EngBox.getText()+", "+EspBox.getText()+", "+WordClassBox.getSelectedItem(), "Added" , JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		button1.setActionCommand("AddWord");
+		
+		
+		JFrame addMenu = new JFrame();
+		addMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addMenu.setLayout(null);
+		addMenu.setSize(400,300);
+		addMenu.setBackground(Color.gray);
+		addMenu.setTitle("Add");
+		addMenu.setResizable(false);
+		
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		
+		Dimension dim = kit.getScreenSize();
+		
+		int xPos = (dim.width / 2) - (this.getWidth() / 2);
+
+		addMenu.setLocation(xPos, 0);
+		
+		addMenu.add(panelMain);
+			panelMain.add(langPanel);
+				langPanel.add(label1);
+				langPanel.add(EngBox);
+				
+				langPanel.add(label2);
+				langPanel.add(EspBox);
+				
+				langPanel.add(label3);
+				langPanel.add(WordClassBox);
+				langPanel.add(button1);
+		
+		addMenu.setVisible(true);
+	}
+
+	public void DeleteMenu()
+	{
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		
+		Dimension dim = kit.getScreenSize();
+		
+		int xPos = (dim.width / 2) - (this.getWidth() / 2);
+		int yPos = (dim.height / 2) - (this.getHeight() / 2);
+
+		this.setLocation(xPos, yPos);
+		
+		JPanel panelMain = new JPanel();
+		panelMain.setBackground(Color.gray);
+		panelMain.setBounds(0,0,400,300);
+		panelMain.setLayout(null);
+		JPanel langPanel = new JPanel();
+		langPanel.setBackground(Color.gray);
+		langPanel.setBounds(5,5,375,250);
+		langPanel.setLayout(null);
+		
+		JButton button1 = new JButton();
+		button1.setBounds(225,25,125,75);
+		button1.setText("Delete");
+		button1.setToolTipText("Please add text to all text fields then press this button to delete the word from the dictionary.");
+		
+		JLabel label1 = new JLabel();
+		label1.setBounds(15,3,173,25);
+		label1.setText("English word:");
+		
+		JTextArea EngBox = new JTextArea();
+		EngBox.setBounds(15,25,173,25);
+		EngBox.setFont(new Font("Verdana", Font.PLAIN, 18));
+		EngBox.setLineWrap(true);
+		EngBox.setWrapStyleWord(true);
+		EngBox.setText("");
+		
+		JLabel label2 = new JLabel();
+		label2.setBounds(15,78,173,25);
+		label2.setText("Spanish word:");
+		
+		JTextArea EspBox = new JTextArea();
+		EspBox.setBounds(15,100,173,25);
+		EspBox.setFont(new Font("Verdana", Font.PLAIN, 18));
+		EspBox.setLineWrap(true);
+		EspBox.setWrapStyleWord(true);
+		EspBox.setText("");
+		
+		JLabel label3 = new JLabel();
+		label3.setBounds(15,153,173,25);
+		label3.setText("Word class:");
+		
+		JComboBox WordClassBox = new JComboBox(wordClass.values());
+		WordClassBox.setSelectedIndex(0);
+		WordClassBox.setBounds(15,175,173,25);
+		
+		JFrame DeleteMenu = new JFrame();
+		DeleteMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		DeleteMenu.setLayout(null);
+		DeleteMenu.setSize(400,300);
+		DeleteMenu.setBackground(Color.gray);
+		DeleteMenu.setTitle("Delete");
+		DeleteMenu.setResizable(false);
+		
+		DeleteMenu.add(panelMain);
+			panelMain.add(langPanel);
+				langPanel.add(label1);
+				langPanel.add(EngBox);
+			
+				langPanel.add(label2);
+				langPanel.add(EspBox);
+			
+				langPanel.add(label3);
+				langPanel.add(WordClassBox);
+				langPanel.add(button1);
+		
+		DeleteMenu.setVisible(true);
+	}
+	
+	public void EditMenu()
+	{
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		
+		Dimension dim = kit.getScreenSize();
+		
+		int xPos = (dim.width / 2) - (this.getWidth() / 2);
+		int yPos = (dim.height / 2) - (this.getHeight() / 2);
+
+		this.setLocation(xPos, yPos);
+		
+		JPanel panelMain = new JPanel();
+		panelMain.setBackground(Color.gray);
+		panelMain.setBounds(0,0,600,400);
+		panelMain.setLayout(null);
+		
+		JPanel langPanel = new JPanel();
+		langPanel.setBackground(Color.gray);
+		langPanel.setBounds(5,5,575,350);
+		langPanel.setLayout(null);
+		
+		JButton button1 = new JButton();
+		button1.setBounds(225,25,125,75);
+		button1.setText("Edit");
+		button1.setToolTipText("Please add text to all text fields then press this button to apply the edit to the dictionary.");
+		
+		
+		JLabel label1 = new JLabel();
+		label1.setBounds(15,3,173,25);
+		label1.setText("English word:");
+		
+		JTextArea EngBox = new JTextArea();
+		EngBox.setBounds(15,25,173,25);
+		EngBox.setFont(new Font("Verdana", Font.PLAIN, 18));
+		EngBox.setLineWrap(true);
+		EngBox.setWrapStyleWord(true);
+		EngBox.setText("");
+		
+		JLabel label2 = new JLabel();
+		label2.setBounds(15,78,173,25);
+		label2.setText("Spanish word:");
+		
+		JTextArea EspBox = new JTextArea();
+		EspBox.setBounds(15,100,173,25);
+		EspBox.setFont(new Font("Verdana", Font.PLAIN, 18));
+		EspBox.setLineWrap(true);
+		EspBox.setWrapStyleWord(true);
+		EspBox.setText("");
+		
+		JLabel label3 = new JLabel();
+		label3.setBounds(15,153,173,25);
+		label3.setText("Word class:");
+		
+		JComboBox WordClassBox = new JComboBox(wordClass.values());
+		WordClassBox.setSelectedIndex(0);
+		WordClassBox.setBounds(15,175,173,25);
+		
+		JFrame EditMenu = new JFrame();
+		EditMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		EditMenu.setLayout(null);
+		EditMenu.setSize(400,300);
+		EditMenu.setBackground(Color.gray);
+		EditMenu.setTitle("Edit");
+		EditMenu.setResizable(false);
+		
+		EditMenu.add(panelMain);
+			panelMain.add(langPanel);
+				langPanel.add(label1);
+				langPanel.add(EngBox);
+			
+				langPanel.add(label2);
+				langPanel.add(EspBox);
+			
+				langPanel.add(label3);
+				langPanel.add(WordClassBox);
+				langPanel.add(button1);
+		
+		EditMenu.setVisible(true);
+	}
+
 }
