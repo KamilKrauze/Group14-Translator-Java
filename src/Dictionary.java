@@ -78,7 +78,7 @@ public class Dictionary {
         try (PrintWriter writer = new PrintWriter(this.fileName)) {
             writer.println(String.join(", ", verbPrefixes));
             writer.println(String.join(", ", verbSuffixes));
-            tree.traverseTreeInorder(tree.getRoot(), s -> writer.printf("%s,%s%n", s.getid(), s.getValue().toString()));
+            tree.traverseTreePreorder(tree.getRoot(), s -> writer.printf("%s,%s%n", s.getid(), s.getValue().toString()));
         } catch (Exception e) {
             System.out.printf("Error: %s when trying to save file: %s%n", e, "");
         }
