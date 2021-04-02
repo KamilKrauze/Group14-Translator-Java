@@ -24,9 +24,9 @@ public class Dictionary {
     /**
      * @param args
      */
-    public static void main(String[] args) {
-        Dictionary d = new Dictionary("EN-ES-WC.csv");
-    }
+//    public static void main(String[] args) {
+//        Dictionary d = new Dictionary("EN-ES-WC.csv");
+//    }
 
     public Dictionary() {
         tree = new BalancedBinaryTree<DictionaryEntry>();
