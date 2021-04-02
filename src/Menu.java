@@ -287,7 +287,7 @@ public class Menu extends JFrame {
 		EditBTN.setActionCommand("Edit");
 
 		JFrame modMenu = new JFrame();
-		modMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		modMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		modMenu.setLayout(null);
 		modMenu.setSize(800,600);
 		modMenu.setBackground(Color.gray);
@@ -377,7 +377,7 @@ public class Menu extends JFrame {
 
 
 		JFrame addMenu = new JFrame();
-		addMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addMenu.setLayout(null);
 		addMenu.setSize(400,300);
 		addMenu.setBackground(Color.gray);
@@ -489,7 +489,7 @@ public class Menu extends JFrame {
 		button1.setActionCommand("Delete");
 
 		JFrame DeleteMenu = new JFrame();
-		DeleteMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		DeleteMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		DeleteMenu.setLayout(null);
 		DeleteMenu.setSize(400,300);
 		DeleteMenu.setBackground(Color.gray);
@@ -595,7 +595,7 @@ public class Menu extends JFrame {
 		button1.setActionCommand("Edit");
 
 		JFrame EditMenu = new JFrame();
-		EditMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		EditMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		EditMenu.setLayout(null);
 		EditMenu.setSize(400,300);
 		EditMenu.setBackground(Color.gray);
