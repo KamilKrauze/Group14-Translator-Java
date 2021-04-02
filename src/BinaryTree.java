@@ -98,12 +98,23 @@ public class BinaryTree<T> {
     }
 
     /**
+     * Updates the node with the given value.
+     * 
+     * @param id    the id of the node
+     * @param value the new value
+     * @throws NodeDoesntExistException if No node with such id exists
+     */
+    public void updateNode(int id, T value) throws NodeDoesntExistException {
+        this.getNodeFromTree(root, id).setValue(value);
+    }
+
+    /**
      * @param id to check
      * @return T The value of the nod
      * @throws NodeDoesntExistException if No node with such id exists
      */
     public T getNodeById(int id) throws NodeDoesntExistException {
-        return getNodeFromTree(root, id);
+        return getNodeFromTree(root, id).getValue();
     }
 
     /**
@@ -114,11 +125,11 @@ public class BinaryTree<T> {
      * @return T The value of the nod
      * @throws NodeDoesntExistException if No node with such id exists
      */
-    private T getNodeFromTree(TreeNode<T> current, int id) throws NodeDoesntExistException {
+    private TreeNode<T> getNodeFromTree(TreeNode<T> current, int id) throws NodeDoesntExistException {
         if (current == null) {
             throw new NodeDoesntExistException();
         } else if (current.getid() == id) {
-            return current.getValue();
+            return current;
         }
 
         if (current.getid() < id) {
