@@ -14,10 +14,10 @@ public class Translator {
     /**
      * @param args
      */
-    public static void main(String[] args) {
-        Translator t = new Translator();
-        t.translateText("Lorem ipsum dolor sit amet. Kurwa do pici.");
-    }
+//    public static void main(String[] args) {
+//        Translator t = new Translator();
+//        t.translateText("Lorem ipsum dolor sit amet. Kurwa do pici.");
+//    }
 
     public Translator() {
         dictionary = new Dictionary();

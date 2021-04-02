@@ -9,10 +9,10 @@ public class Tester {
      * Runs the tests
      * @param args
      */
-    public static void main(String[] args) {
-        Tester t = new Tester();
-        t.testBinaryTrees();
-    }
+//    public static void main(String[] args) {
+//        Tester t = new Tester();
+//        t.testBinaryTrees();
+//    }
 
     public Tester() {
         tree = new BinaryTree<Integer>();

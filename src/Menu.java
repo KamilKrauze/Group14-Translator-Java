@@ -36,7 +36,7 @@ public class Menu extends JFrame {
 	public static void main(String[] Args)
 	{
 		Menu menu = new Menu();
-		menu.addMenu();
+		menu.mainMenu();
 	}
 
 	public void mainMenu()
@@ -436,11 +436,6 @@ public class Menu extends JFrame {
 		langPanel.setBounds(5,5,375,250);
 		langPanel.setLayout(null);
 
-		JButton button1 = new JButton();
-		button1.setBounds(225,25,125,75);
-		button1.setText("Delete");
-		button1.setToolTipText("Please add text to all text fields then press this button to delete the word from the dictionary.");
-
 		JLabel label1 = new JLabel();
 		label1.setBounds(15,3,173,25);
 		label1.setText("English word:");
@@ -470,6 +465,26 @@ public class Menu extends JFrame {
 		JComboBox WordClassBox = new JComboBox(wordClass.values());
 		WordClassBox.setSelectedIndex(0);
 		WordClassBox.setBounds(15,175,173,25);
+
+		JButton button1 = new JButton();
+		button1.setBounds(225,25,125,75);
+		button1.setText("Delete");
+		button1.setToolTipText("Please add text to all text fields then press this button to delete the word from the dictionary.");
+		button1.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				String action = ae.getActionCommand();
+				if(action.equals("Edit"))
+				{
+					Dictionary dictionary = new Dictionary();
+					dictionary.deleteEntry(EngBox.getText(), EspBox.getText());
+					JOptionPane.showMessageDialog(null, EngBox.getText()+", "+EspBox.getText()+", "+WordClassBox.getSelectedItem() + "\n Has been removed.", "Removed" , JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		button1.setActionCommand("Edit");
 
 		JFrame DeleteMenu = new JFrame();
 		DeleteMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -515,12 +530,6 @@ public class Menu extends JFrame {
 		langPanel.setBounds(5,5,575,350);
 		langPanel.setLayout(null);
 
-		JButton button1 = new JButton();
-		button1.setBounds(225,25,125,75);
-		button1.setText("Edit");
-		button1.setToolTipText("Please add text to all text fields then press this button to apply the edit to the dictionary.");
-
-
 		JLabel label1 = new JLabel();
 		label1.setBounds(15,3,173,25);
 		label1.setText("English word:");
@@ -550,6 +559,26 @@ public class Menu extends JFrame {
 		JComboBox WordClassBox = new JComboBox(wordClass.values());
 		WordClassBox.setSelectedIndex(0);
 		WordClassBox.setBounds(15,175,173,25);
+
+		JButton button1 = new JButton();
+		button1.setBounds(225,25,125,75);
+		button1.setText("Edit");
+		button1.setToolTipText("Please add text to all text fields then press this button to apply the edit to the dictionary.");
+		button1.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				String action = ae.getActionCommand();
+				if(action.equals("Edit"))
+				{
+					Dictionary dictionary = new Dictionary();
+					dictionary.modifyEntry(EngBox.getText(), EspBox.getText());
+					JOptionPane.showMessageDialog(null, EngBox.getText()+", "+EspBox.getText()+", "+WordClassBox.getSelectedItem(), "Implemented edit" , JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		button1.setActionCommand("Edit");
 
 		JFrame EditMenu = new JFrame();
 		EditMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
