@@ -19,7 +19,7 @@ public class WordTypeHelper {
         case "adj":
             return WordType.ADJECTIVE;
         case "prop":
-            return WordType.PROPOSITIOIN;
+            return WordType.PREPOSITION;
         case "adv":
             return WordType.ADVERB;
         case "prep":

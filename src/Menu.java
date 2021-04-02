@@ -13,21 +13,7 @@ import java.awt.event.*;
  */
 public class Menu extends JFrame {
 
-	enum wordClass
-	{
-		Adjective,
-		Adverb,
-		Conjuction,
-		Determiner,
-		Exclamation,
-		Noun,
-		Pronoun,
-		Verb,
-		Preposition,
-		Interjection
-	}
-
-	enum langList
+	private enum langList
 	{
 		English,
 		Spanish
@@ -360,7 +346,7 @@ public class Menu extends JFrame {
 		label3.setBounds(15,153,173,25);
 		label3.setText("Word class:");
 
-		JComboBox WordClassBox = new JComboBox(wordClass.values());
+		JComboBox WordClassBox = new JComboBox(WordType.values());
 		WordClassBox.setSelectedIndex(0);
 		WordClassBox.setBounds(15,175,173,25);
 
@@ -374,11 +360,16 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent ae)
 			{
 				String action = ae.getActionCommand();
-				if(action.equals("AddWord"))
+				if(EngBox.getText().trim().length() != 0 || EspBox.getText().trim().length() != 0)
 				{
 					Dictionary dictionary = new Dictionary();
-					dictionary.DictionaryEntry(EngBox.getText(), EspBox.getText());
-					JOptionPane.showMessageDialog(null, EngBox.getText()+", "+EspBox.getText()+", "+WordClassBox.getSelectedItem(), "Added" , JOptionPane.INFORMATION_MESSAGE);
+
+					new DictionaryEntry(EngBox.getText(), EspBox.getText(), String.valueOf(WordClassBox.getSelectedItem()));
+					JOptionPane.showMessageDialog(null, EngBox.getText()+", "+EspBox.getText()+", "+WordClassBox.getSelectedItem(), "Added translation" , JOptionPane.INFORMATION_MESSAGE);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Cannot implement translation. Please add text to the field(s)", "Cannot add translation!" , JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -462,7 +453,7 @@ public class Menu extends JFrame {
 		label3.setBounds(15,153,173,25);
 		label3.setText("Word class:");
 
-		JComboBox WordClassBox = new JComboBox(wordClass.values());
+		JComboBox WordClassBox = new JComboBox(WordType.values());
 		WordClassBox.setSelectedIndex(0);
 		WordClassBox.setBounds(15,175,173,25);
 
@@ -476,15 +467,26 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent ae)
 			{
 				String action = ae.getActionCommand();
-				if(action.equals("Edit"))
+				if(action.equals("Delete"))
+				{if(EngBox.getText().trim().length() != 0 || EspBox.getText().trim().length() != 0)
 				{
 					Dictionary dictionary = new Dictionary();
-					dictionary.deleteEntry(EngBox.getText(), EspBox.getText());
-					JOptionPane.showMessageDialog(null, EngBox.getText()+", "+EspBox.getText()+", "+WordClassBox.getSelectedItem() + "\n Has been removed.", "Removed" , JOptionPane.INFORMATION_MESSAGE);
+					try {
+						dictionary.deleteEntry(EngBox.getText());
+					} catch (NodeDoesntExistException e) {
+						e.printStackTrace();
+					}
+					JOptionPane.showMessageDialog(null, EngBox.getText()+", "+EspBox.getText()+", "+WordClassBox.getSelectedItem(), "Removed Item" , JOptionPane.INFORMATION_MESSAGE);
+			
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Cannot remove item. Please add text to the field(s)", "Cannot Remove Item" , JOptionPane.WARNING_MESSAGE);
+				}
 				}
 			}
 		});
-		button1.setActionCommand("Edit");
+		button1.setActionCommand("Delete");
 
 		JFrame DeleteMenu = new JFrame();
 		DeleteMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -556,7 +558,7 @@ public class Menu extends JFrame {
 		label3.setBounds(15,153,173,25);
 		label3.setText("Word class:");
 
-		JComboBox WordClassBox = new JComboBox(wordClass.values());
+		JComboBox WordClassBox = new JComboBox(WordType.values());
 		WordClassBox.setSelectedIndex(0);
 		WordClassBox.setBounds(15,175,173,25);
 
@@ -572,9 +574,21 @@ public class Menu extends JFrame {
 				String action = ae.getActionCommand();
 				if(action.equals("Edit"))
 				{
-					Dictionary dictionary = new Dictionary();
-					dictionary.modifyEntry(EngBox.getText(), EspBox.getText());
-					JOptionPane.showMessageDialog(null, EngBox.getText()+", "+EspBox.getText()+", "+WordClassBox.getSelectedItem(), "Implemented edit" , JOptionPane.INFORMATION_MESSAGE);
+					if(EngBox.getText().trim().length() == 0 || EspBox.getText().trim().length() == 0)
+					{
+						Dictionary dictionary = new Dictionary();
+						try {
+							dictionary.modifyEntry(EngBox.getText(), EspBox.getText());
+						} catch (NodeDoesntExistException e) {
+							e.printStackTrace();
+						}
+						JOptionPane.showMessageDialog(null, EngBox.getText()+", "+EspBox.getText()+", "+WordClassBox.getSelectedItem(), "Modified Item" , JOptionPane.INFORMATION_MESSAGE);
+				
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Cannot modify item. Please add text to the field(s)", "Cannot modify item" , JOptionPane.WARNING_MESSAGE);
+					}
 				}
 			}
 		});
