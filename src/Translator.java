@@ -17,9 +17,9 @@ public class Translator {
      * @param args
      */
 
-    public Translator() {
-        dictionary = new Dictionary();
-    }
+//    public Translator() {
+//        dictionary = new Dictionary();
+//    }
 
     public Translator(Dictionary dictionary) {
         this.dictionary = dictionary;
@@ -77,7 +77,8 @@ public class Translator {
      * @param text to translate
      */
     public String translateText(String text) {
-        String[] sentences = text.split("[/\\\n(){}[/].,;]");
+    	//JOptionPane.showMessageDialog(null, text, "Recieved!", JOptionPane.INFORMATION_MESSAGE);
+    	String[] sentences = text.split("[/\\\n(){}[/].,;]");
         Stream<String> sentenceStream = Arrays.stream(sentences);
         String[] result = sentenceStream.parallel().map(sentence -> {
             // * Check if the sentence is too long and would take too long to translate into
@@ -94,8 +95,8 @@ public class Translator {
             }
         }).toArray(String[]::new);
         String finalString = String.join(". ", result);
-        System.out.println("");
-        System.out.println("Translator finished");
+        //System.out.println("");
+        //System.out.println("Translator finished");
         JOptionPane.showMessageDialog(null, "Tanslation complete", "Complete", JOptionPane.PLAIN_MESSAGE);
         return finalString;
     }

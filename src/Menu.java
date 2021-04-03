@@ -22,12 +22,18 @@ public class Menu extends JFrame {
 	public static void main(String[] Args)
 	{
 		Dictionary dictionary = new Dictionary("dictionary.txt");
-		dictionary.loadFromFile();
+		//dictionary.loadFromFile();
 		
-		
-		
-		Menu menu = new Menu();
+		Menu menu = new Menu(dictionary);
 		menu.mainMenu();
+	}
+	
+	private final Dictionary dictionary;
+	
+	public Menu(Dictionary dictionary)
+	{
+		super();
+		this.dictionary = dictionary;
 	}
 
 	public void mainMenu()
@@ -116,23 +122,7 @@ public class Menu extends JFrame {
 		translateBTN.setBounds(310,5,100,50);
 		translateBTN.setText("Translate");
 		translateBTN.setToolTipText("Translate your text");
-		translateBTN.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent ae)
-			{
-				String action = ae.getActionCommand();
-				if(action.equals("Translate"))
-				{
-					Translator translator = new Translator();
-					String translation = translator.translateText(toTranslate.getText());
-					
-					
-					
-					JOptionPane.showMessageDialog(null, translation, "Completed Translation" , JOptionPane.PLAIN_MESSAGE);
-				}
-			}
-		});
+		translateBTN.addActionListener(new myActionListener(dictionary, toTranslate));
 		translateBTN.setActionCommand("Translate");
 
 		int btnOffset = 150;
@@ -642,4 +632,35 @@ public class Menu extends JFrame {
 		EditMenu.setVisible(true);
 	}
 
+	private class myActionListener implements ActionListener
+	{
+		private Dictionary dictionary;
+		private JTextArea textBox;
+		
+		
+		
+		public myActionListener(Dictionary dictionary, JTextArea textBox)
+		{
+			this.dictionary = dictionary;
+			this.textBox = textBox;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent ae)
+		{
+			String action = ae.getActionCommand();
+			if(action.equals("Translate"))
+			{
+				JOptionPane.showMessageDialog(null, textBox.getText(), "Completed Translation" , JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, dictionary, "Completed Translation" , JOptionPane.PLAIN_MESSAGE);
+				Translator translator = new Translator(dictionary);
+				JOptionPane.showMessageDialog(null, translator, "Completed Translation" , JOptionPane.PLAIN_MESSAGE);
+				String translation = translator.translateText(textBox.getText());
+				
+				
+				
+			}
+		}
+	}
 }
+
