@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 /**
  * 
  *
@@ -18,8 +20,6 @@ public class WordTypeHelper {
             return WordType.NOUN;
         case "v":
             return WordType.VERB;
-        case "prop":
-            return WordType.PREPOSITION;
         case "adv":
             return WordType.ADVERB;
         case "prep":
@@ -39,6 +39,8 @@ public class WordTypeHelper {
 
         default:
             System.out.printf("Cannot find wordtype %s%n", s);
+			JOptionPane.showMessageDialog(null, "Cannot find wordtype \s\n" + s, "Cannot find word type" , JOptionPane.WARNING_MESSAGE);
+
             return null;
         }
     }

@@ -70,7 +70,7 @@ public class Dictionary {
                 line = reader.readLine();
             }
         } catch (Exception e) {
-        	JOptionPane.showMessageDialog(null, "Error: \s when parsing file: \s\n "+ e + filePath, "Added translation" , JOptionPane.INFORMATION_MESSAGE);// NOSONAR
+        	//JOptionPane.showMessageDialog(null, "Error: \s when parsing file: \s\n "+ e + filePath, "Added translation" , JOptionPane.INFORMATION_MESSAGE);// NOSONAR
             System.out.printf("Error: \s when parsing file: \s\n", e, filePath);
         }
     }
@@ -110,8 +110,8 @@ public class Dictionary {
                     int id = Integer.parseInt(tokens[0]);
                     tree.addUnbalanced(new TreeNode<DictionaryEntry>(dictEnt, id));
                 } catch (Exception e) { // NOSONAR
-                    System.out.printf("Error: %s when trying to read file: %s%n", e, "");
-					JOptionPane.showMessageDialog(null, "Error: \s when trying to read file: \s\n"+e, "Warning" , JOptionPane.WARNING_MESSAGE);
+                    //System.out.printf("Error: %s when trying to read file: %s%n", e, "");
+					//JOptionPane.showMessageDialog(null, "Error: \s when trying to read file: \s\n"+e, "Warning" , JOptionPane.WARNING_MESSAGE);
 
 
                 }
@@ -119,8 +119,8 @@ public class Dictionary {
                 line = reader.readLine();
             }
         } catch (Exception e) {
-            System.out.printf("Error: %s when trying to read file: %s%n", e, "");
-            JOptionPane.showMessageDialog(null,"Error: \s when trying to read file: \s\n"+e,"Warning",JOptionPane.WARNING_MESSAGE);
+            //System.out.printf("Error: %s when trying to read file: %s%n", e, "");
+            //JOptionPane.showMessageDialog(null,"Error: \s when trying to read file: \s\n"+e,"Warning",JOptionPane.WARNING_MESSAGE);
 
         }
     }

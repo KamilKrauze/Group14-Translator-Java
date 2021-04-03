@@ -102,14 +102,14 @@ public class Menu extends JFrame {
 		JScrollPane TranslateScroll = new JScrollPane(toTranslate);
 		TranslateScroll.setBounds(0,5,340,315);
 
-		JTextArea translated = new JTextArea();
-		translated.setBounds(5,5,340,315);
-		translated.setFont(new Font("Verdana", Font.PLAIN, 15));
-		translated.setText("The translated text will be outputted here.");
-		translated.setLineWrap(true);
-		translated.setWrapStyleWord(true);
+		JTextArea translatedBox = new JTextArea();
+		translatedBox.setBounds(5,5,340,315);
+		translatedBox.setFont(new Font("Verdana", Font.PLAIN, 15));
+		translatedBox.setText("The translated text will be outputted here.");
+		translatedBox.setLineWrap(true);
+		translatedBox.setWrapStyleWord(true);
 
-		JScrollPane TranslatedScroll = new JScrollPane(translated);
+		JScrollPane TranslatedScroll = new JScrollPane(translatedBox);
 		TranslatedScroll.setBounds(5,5,340,315);
 
 		JButton translateBTN = new JButton();
@@ -125,8 +125,11 @@ public class Menu extends JFrame {
 				if(action.equals("Translate"))
 				{
 					Translator translator = new Translator();
-					translated.setText(translator.translateText(toTranslate.getText()));
-					JOptionPane.showMessageDialog(null, "Translation Complete", "Completed Translation" , JOptionPane.PLAIN_MESSAGE);
+					String translation = translator.translateText(toTranslate.getText());
+					
+					
+					
+					JOptionPane.showMessageDialog(null, translation, "Completed Translation" , JOptionPane.PLAIN_MESSAGE);
 				}
 			}
 		});
