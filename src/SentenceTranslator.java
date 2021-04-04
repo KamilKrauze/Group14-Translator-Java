@@ -3,7 +3,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A helper class to the Translator class. The algorithm is better described in the report.
+ * A helper class to the Translator class. The algorithm is better described in
+ * the report.
  * 
  * Used for wrapping of the translate sentence method and its helper method.
  * 
@@ -67,7 +68,9 @@ public class SentenceTranslator {
 
                 List<String> phrase = sentenceArr.subList(i, phraseLength + i);
                 String translatedPhrase = dictionary.translatePhrase(String.join(" ", phrase));
-
+                if (translatedPhrase == null && phrase.size() == 1) {
+                    translatedPhrase = phrase.get(0);
+                }
                 if (translatedPhrase != null) {
                     // If translation exists
                     if (!result.matches("")) {

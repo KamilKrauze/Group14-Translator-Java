@@ -24,6 +24,17 @@ public class Translator {
      * @param args
      */
 
+    public static void main(String[] args) {
+        Translator t = new Translator(new Dictionary("dictionary.txt"));
+        try {
+            System.out.println(t.translateFile("a.txt"));
+            System.out.println(
+                    t.translateText("Important thing happening here and I think to be. Importance starboard."));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public Translator() {
         dictionary = new Dictionary();
     }
@@ -95,6 +106,25 @@ public class Translator {
     }
 
     /**
+     * Translates the given file and returns the translation as a string
+     * 
+     * @param filename the name of the file to translate
+     * @return String the translated string
+     * @throws Exception
+     */
+    public String translateFile(String filename) throws IOException {
+        // String newFileName = filename.substring(0, filename.lastIndexOf(".")) +
+        // "_translated.txt";
+
+        try (Stream<String> stream = Files.lines(Paths.get(filename), StandardCharsets.UTF_8)) {
+            String[] result = translateParallel(stream);
+            return String.join(" ", result);
+        } catch (IOException e) {
+            throw e;
+        }
+    }
+
+    /**
      * Helper fucntion. Takes a stream of sentences, or lines and translates them in
      * parallel, returning an array with the results.
      * 
@@ -108,8 +138,8 @@ public class Translator {
             String[] sentArr = sentence.split(" ");
             if (sentArr.length > maxNumberOfWordInASentence) {
                 // Translate them word by word
-                return String.join(" ", Arrays.stream(sentArr).parallel()
-                        .map(phrase -> dictionary.translatePhrase(phrase)).toArray(String[]::new));
+                return String.join(" ", Arrays.stream(sentArr).parallel().map(phrase -> translateHelper(phrase))
+                        .toArray(String[]::new));
             } else {
                 // use the sentence translator
                 SentenceTranslator sentenceTranslator = new SentenceTranslator(sentence, dictionary);
@@ -119,20 +149,20 @@ public class Translator {
     }
 
     /**
-     * Translates the given file and returns the translation as a string
+     * Tries to translate the word, using the dictionary translate word method. If
+     * the dictionary doesnt contain the word, will return the original word
+     * instead.
      * 
-     * @param filename the name of the file to translate
-     * @return String the translated string
-     * @throws Exception
+     * @param the word to be translated
+     * @return the translated word or the original word if the dictionary doesn't
+     *         contain the word
      */
-    public String translateFile(String filename) throws IOException {
-        // String newFileName = filename.substring(0, filename.lastIndexOf(".")) + "_translated.txt";
-
-        try (Stream<String> stream = Files.lines(Paths.get(filename), StandardCharsets.UTF_8)) {
-            String[] result = translateParallel(stream);
-            return String.join(" ", result);
-        } catch (IOException e) {
-            throw e;
+    private String translateHelper(String phrase) {
+        String answer = dictionary.translatePhrase(phrase);
+        if (answer == null) {
+            return phrase;
+        } else {
+            return answer;
         }
     }
 

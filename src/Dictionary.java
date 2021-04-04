@@ -235,7 +235,7 @@ public class Dictionary {
             return translation.getTranslation();
         } catch (NodeDoesntExistException e) {
             System.out.println(phrase + phrase.hashCode());
-            return original;
+            return null;
         }
     }
 
