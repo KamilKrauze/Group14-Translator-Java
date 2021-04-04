@@ -19,7 +19,7 @@ public class Menu extends JFrame {
 	String[] DictionaryFiles = {"F:\\Java Workspace\\Group14-Translator-Java\\dictionary copy.txt" };
 
 	public static void main(String[] Args) {
-		Dictionary dictionary = new Dictionary("dictionary.txt");
+		Dictionary dictionary = new Dictionary("F:\\Java Workspace\\Group14-Translator-Java\\dictionary copy.txt");
 		// Dictionary dictionary = new Dictionary("F:\\Java Workspace\\Group14-Translator-Java\\dictionary copy.txt");
 		// dictionary.loadFromFile();
 
