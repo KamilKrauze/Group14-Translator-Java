@@ -18,7 +18,7 @@ public class Menu extends JFrame {
 	}
 
 	public static void main(String[] Args) {
-		Dictionary dictionary = new Dictionary("dictionary.txt");
+		Dictionary dictionary = new Dictionary("F:\\Java Workspace\\Group14-Translator-Java\\dictionary copy.txt");
 		// dictionary.loadFromFile();
 		
 		Menu menu = new Menu(dictionary);
@@ -364,7 +364,7 @@ public class Menu extends JFrame {
 					Dictionary dictionary = new Dictionary();
 
 					new DictionaryEntry(EngBox.getText(), EspBox.getText(),
-							String.valueOf(WordClassBox.getSelectedItem()));
+							WordType.NONE);
 					JOptionPane.showMessageDialog(null,
 							EngBox.getText() + ", " + EspBox.getText() + ", " + WordClassBox.getSelectedItem(),
 							"Added translation", JOptionPane.INFORMATION_MESSAGE);

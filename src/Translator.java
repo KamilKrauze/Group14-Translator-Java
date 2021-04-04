@@ -97,7 +97,7 @@ public class Translator {
         String finalString = String.join(". ", result);
         //System.out.println("");
         //System.out.println("Translator finished");
-        JOptionPane.showMessageDialog(null, "Tanslation complete", "Complete", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Translation complete", "Complete", JOptionPane.PLAIN_MESSAGE);
         return finalString;
     }
 
