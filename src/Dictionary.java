@@ -80,6 +80,8 @@ public class Dictionary {
             writer.println(String.join(", ", verbSuffixes));
             tree.traverseTreePreorder(tree.getRoot(),
                     s -> writer.printf("%s,%s%n", s.getid(), s.getValue().toString()));
+            JOptionPane.showMessageDialog(null, "SAVED",
+                    "SAVED!", JOptionPane.PLAIN_MESSAGE);
         } catch (Exception e) {
             System.out.printf("Error: %s when trying to save file: %s%n", e, "");
         }
@@ -132,6 +134,7 @@ public class Dictionary {
      */
     public void addEntry(DictionaryEntry entry) throws IDExistsException {
         tree.add(new TreeNode<DictionaryEntry>(entry, getHashCode(entry.getWord())));
+        saveToFile();
     }
 
     /**
@@ -148,6 +151,7 @@ public class Dictionary {
         DictionaryEntry entry = tree.getNodeById(id);
         entry.setTranslation(translation);
         tree.updateNode(id, entry);
+        saveToFile();
         return entry;
     }
 
@@ -162,6 +166,7 @@ public class Dictionary {
         int id = getHashCode(word);
         DictionaryEntry entry = tree.getNodeById(id);
         tree.deleteNode(id);
+        saveToFile();
         return entry;
     }
 
