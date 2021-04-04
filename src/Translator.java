@@ -125,16 +125,27 @@ public class Translator {
      * @return String the translated string
      * @throws Exception
      */
-    public void translateFile(String filename) throws IOException {
-        String newFileName = filename.substring(0, filename.lastIndexOf(".")) + "_translated.txt";
+    public String translateFile(String filename) throws IOException {
+        // String newFileName = filename.substring(0, filename.lastIndexOf(".")) + "_translated.txt";
 
         try (Stream<String> stream = Files.lines(Paths.get(filename), StandardCharsets.UTF_8)) {
             String[] result = translateParallel(stream);
-            try (PrintWriter printwriter = new PrintWriter(newFileName)) {
-                Arrays.stream(result).forEach(s -> printwriter.print(s));
-            } catch (IOException e) {
-                throw e;
-            }
+            return String.join(" ", result);
+        } catch (IOException e) {
+            throw e;
+        }
+    }
+
+    /**
+     * Saves the text to a file
+     * 
+     * @param text     The text to save
+     * @param fileName the filepath of the file
+     * @throws IOException if theres an error writing
+     */
+    public void saveTextToAFile(String text, String fileName) throws IOException {
+        try (PrintWriter printwriter = new PrintWriter(fileName)) {
+            printwriter.println(text);
         } catch (IOException e) {
             throw e;
         }
