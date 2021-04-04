@@ -217,41 +217,54 @@ public class Menu extends JFrame {
 
 		JPanel panelMain = new JPanel();
 		panelMain.setBackground(Color.gray);
-		panelMain.setBounds(0, 0, 800, 600);
+		panelMain.setBounds(0, 0, 800, 300);
 		panelMain.setLayout(null);
 
 		JPanel langPanel = new JPanel();
 		langPanel.setBackground(Color.gray);
-		langPanel.setBounds(5, 5, 775, 475);
+		langPanel.setBounds(5, 5, 775, 300);
 		langPanel.setLayout(null);
 
-		JPanel btnPanel = new JPanel();
-		btnPanel.setBackground(Color.gray);
-		btnPanel.setBounds(5, 485, 775, 60);
-		btnPanel.setLayout(null);
 
-		JTextArea phraseBox = new JTextArea();
-		phraseBox.setBounds(1, 1, 773, 473);
-		phraseBox.setFont(new Font("Verdana", Font.PLAIN, 18));
-		phraseBox.setLineWrap(true);
-		phraseBox.setWrapStyleWord(true);
-		phraseBox.setText("");
-
-		JScrollPane phraseScroll = new JScrollPane(phraseBox);
-		phraseScroll.setBounds(1, 1, 773, 473);
-
-		JButton ConfirmBTN = new JButton();
-		ConfirmBTN.setBounds(480, 5, 100, 50);
-		ConfirmBTN.setText("Confirm");
-		ConfirmBTN.setToolTipText("Confirm your current modifications");
-
-		JButton ApplyBTN = new JButton();
-		ApplyBTN.setBounds(585, 5, 100, 50);
-		ApplyBTN.setText("Apply");
-		ApplyBTN.setToolTipText("Apply your current modifications");
+		final String html = "<html><body style='width: %1spx'>%1s";
+		
+		JLabel header = new JLabel();
+		header.setBounds(5, 5, 775, 25);
+		header.setFont(new Font("Verdana", Font.BOLD, 15));
+		header.setText("Instructions");
+		
+		JLabel desc = new JLabel();
+		desc.setBounds(5, 35, 775, 25);
+		desc.setFont(new Font("Verdana", Font.PLAIN, 26/2));
+		desc.setText("This menu allows you to modify the dictionary of this program to your own desire.");
+		
+		JLabel inst1 = new JLabel();
+		inst1.setBounds(5, 65, 775, 25);
+		inst1.setFont(new Font("Verdana", Font.PLAIN, 26/2));
+		inst1.setText("1. The 'ADD' button allows you to add a new defintion into the dictionary, by entering an English word and then the spanish");
+		
+		JLabel inst1_2 = new JLabel();
+		inst1_2.setBounds(5,80,775,25);
+		inst1_2.setFont(new Font("Verdana", Font.PLAIN, 26/2));
+		inst1_2.setText("     or any other language's equivalent.");
+		
+		JLabel inst2 = new JLabel();
+		inst2.setBounds(5, 105, 775, 25);
+		inst2.setFont(new Font("Verdana", Font.PLAIN, 26/2));
+		inst2.setText("2. The 'DELETE' button allows you to remove a definition from the dictionary by specifying an English word.");
+		
+		JLabel inst3 = new JLabel();
+		inst3.setBounds(5, 135, 775, 25);
+		inst3.setFont(new Font("Verdana", Font.PLAIN, 26/2));
+		inst3.setText("3. The 'EDIT' button allows you to modify an existing defintion within the dictionary by specifying which word in English");
+		
+		JLabel inst3_2 = new JLabel();
+		inst3_2.setBounds(5,150,775,25);
+		inst3_2.setFont(new Font("Verdana", Font.PLAIN, 26/2));
+		inst3_2.setText("     and then the new defintion in Spanish or any other language");
 
 		JButton AddBTN = new JButton();
-		AddBTN.setBounds(165, 5, 100, 50);
+		AddBTN.setBounds(245, 185, 100, 50);
 		AddBTN.setText("Add");
 		AddBTN.addActionListener(new ActionListener() {
 			@Override
@@ -265,7 +278,7 @@ public class Menu extends JFrame {
 		AddBTN.setActionCommand("Add");
 
 		JButton DelBTN = new JButton();
-		DelBTN.setBounds(60, 5, 100, 50);
+		DelBTN.setBounds(455, 185, 100, 50);
 		DelBTN.setText("Delete");
 		DelBTN.addActionListener(new ActionListener() {
 			@Override
@@ -279,7 +292,7 @@ public class Menu extends JFrame {
 		DelBTN.setActionCommand("Delete");
 
 		JButton EditBTN = new JButton();
-		EditBTN.setBounds(270, 5, 100, 50);
+		EditBTN.setBounds(350, 185, 100, 50);
 		EditBTN.setText("Edit");
 		EditBTN.addActionListener(new ActionListener() {
 			@Override
@@ -295,20 +308,25 @@ public class Menu extends JFrame {
 		JFrame modMenu = new JFrame();
 		modMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		modMenu.setLayout(null);
-		modMenu.setSize(800, 600);
+		modMenu.setSize(800, 300);
 		modMenu.setBackground(Color.gray);
 		modMenu.setTitle("Modify");
 		modMenu.setResizable(false);
 
 		modMenu.add(panelMain);
-		panelMain.add(langPanel);
-		langPanel.add(this.add(phraseScroll));
-		panelMain.add(btnPanel);
-		btnPanel.add(AddBTN);
-		btnPanel.add(DelBTN);
-		btnPanel.add(EditBTN);
-		btnPanel.add(ConfirmBTN);
-		btnPanel.add(ApplyBTN);
+			panelMain.add(langPanel);
+				langPanel.add(header);
+				langPanel.add(desc);
+				langPanel.add(inst1);
+				langPanel.add(inst1_2);
+				langPanel.add(inst2);
+				langPanel.add(inst3);
+				langPanel.add(inst3_2);
+			
+			panelMain.add(langPanel);
+				langPanel.add(AddBTN);
+				langPanel.add(DelBTN);
+				langPanel.add(EditBTN);
 
 		modMenu.setVisible(true);
 	}
@@ -361,10 +379,15 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent ae) {
 				String action = ae.getActionCommand();
 				if (EngBox.getText().trim().length() != 0 || EspBox.getText().trim().length() != 0) {
-					Dictionary dictionary = new Dictionary();
 
-					new DictionaryEntry(EngBox.getText(), EspBox.getText(),
-							WordType.NONE);
+					DictionaryEntry entry = new DictionaryEntry(EngBox.getText(), EspBox.getText(),WordType.NONE);
+					try {
+						dictionary.addEntry(entry);
+					} catch (IDExistsException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					JOptionPane.showMessageDialog(null,
 							EngBox.getText() + ", " + EspBox.getText() + ", " + WordClassBox.getSelectedItem(),
 							"Added translation", JOptionPane.INFORMATION_MESSAGE);
@@ -435,23 +458,6 @@ public class Menu extends JFrame {
 		EngBox.setFont(new Font("Verdana", Font.PLAIN, 18));
 		EngBox.setText("");
 
-		JLabel label2 = new JLabel();
-		label2.setBounds(15, 78, 173, 25);
-		label2.setText("Spanish word:");
-
-		JTextField EspBox = new JTextField();
-		EspBox.setBounds(15, 100, 173, 25);
-		EspBox.setFont(new Font("Verdana", Font.PLAIN, 18));
-		EspBox.setText("");
-
-		JLabel label3 = new JLabel();
-		label3.setBounds(15, 153, 173, 25);
-		label3.setText("Word class:");
-
-		JComboBox WordClassBox = new JComboBox(WordType.values());
-		WordClassBox.setSelectedIndex(0);
-		WordClassBox.setBounds(15, 175, 173, 25);
-
 		JButton button1 = new JButton();
 		button1.setBounds(225, 25, 125, 75);
 		button1.setText("Delete");
@@ -462,15 +468,15 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent ae) {
 				String action = ae.getActionCommand();
 				if (action.equals("Delete")) {
-					if (EngBox.getText().trim().length() != 0 || EspBox.getText().trim().length() != 0) {
-						Dictionary dictionary = new Dictionary();
+					if (EngBox.getText().trim().length() != 0) {
+						
 						try {
 							dictionary.deleteEntry(EngBox.getText());
 						} catch (NodeDoesntExistException e) {
 							e.printStackTrace();
 						}
 						JOptionPane.showMessageDialog(null,
-								EngBox.getText() + ", " + EspBox.getText() + ", " + WordClassBox.getSelectedItem(),
+								EngBox.getText() + "has been removed from the dictionary",
 								"Removed Item", JOptionPane.INFORMATION_MESSAGE);
 
 					} else {
@@ -495,11 +501,6 @@ public class Menu extends JFrame {
 		langPanel.add(label1);
 		langPanel.add(EngBox);
 
-		langPanel.add(label2);
-		langPanel.add(EspBox);
-
-		langPanel.add(label3);
-		langPanel.add(WordClassBox);
 		langPanel.add(button1);
 
 		DeleteMenu.setVisible(true);
@@ -536,7 +537,7 @@ public class Menu extends JFrame {
 
 		JLabel label2 = new JLabel();
 		label2.setBounds(15, 78, 173, 25);
-		label2.setText("Spanish word:");
+		label2.setText("New Spanish Word:");
 
 		JTextField EspBox = new JTextField();
 		EspBox.setBounds(15, 100, 173, 25);
@@ -546,10 +547,6 @@ public class Menu extends JFrame {
 		JLabel label3 = new JLabel();
 		label3.setBounds(15, 153, 173, 25);
 		label3.setText("Word class:");
-
-		JComboBox WordClassBox = new JComboBox(WordType.values());
-		WordClassBox.setSelectedIndex(0);
-		WordClassBox.setBounds(15, 175, 173, 25);
 
 		JButton button1 = new JButton();
 		button1.setBounds(225, 25, 125, 75);
@@ -561,15 +558,14 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent ae) {
 				String action = ae.getActionCommand();
 				if (action.equals("Edit")) {
-					if (EngBox.getText().trim().length() == 0 || EspBox.getText().trim().length() == 0) {
-						Dictionary dictionary = new Dictionary();
+					if (EngBox.getText().trim().length() != 0 && EspBox.getText().trim().length() != 0) {
 						try {
 							dictionary.modifyEntry(EngBox.getText(), EspBox.getText());
 						} catch (NodeDoesntExistException e) {
 							e.printStackTrace();
 						}
 						JOptionPane.showMessageDialog(null,
-								EngBox.getText() + ", " + EspBox.getText() + ", " + WordClassBox.getSelectedItem(),
+								EngBox.getText() + ", " + EspBox.getText() + ", ",
 								"Modified Item", JOptionPane.INFORMATION_MESSAGE);
 
 					} else {
@@ -598,7 +594,6 @@ public class Menu extends JFrame {
 		langPanel.add(EspBox);
 
 		langPanel.add(label3);
-		langPanel.add(WordClassBox);
 		langPanel.add(button1);
 
 		EditMenu.setVisible(true);
