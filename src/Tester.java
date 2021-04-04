@@ -4,15 +4,6 @@ public class Tester {
     BinaryTree<Integer> tree2;
     BinaryTree<Integer> tree3;
 
-    
-    /** 
-     * Runs the tests
-     * @param args
-     */
-//    public static void main(String[] args) {
-//        Tester t = new Tester();
-//        t.testBinaryTrees();
-//    }
 
     public Tester() {
         tree = new BinaryTree<Integer>();

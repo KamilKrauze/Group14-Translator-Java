@@ -1,0 +1,36 @@
+[null]
+[ed, s, en]
+-2147456755,nuclear physics,física nuclear,NOUN
+-2147292550,parhelion,parhelio,NOUN
+-2147234211,accountability,responsabilidad,NOUN
+-2147163683,opera glasses,aclínico,NOUN
+-2146934286,skirmish,escaramuza ,NONE
+-2146634921,anomalous,anómalo,ADJECTIVE
+-2146584531,accentor,acentor,NOUN
+-2146524949,acceptor,aceptador,NOUN
+-2146465706,columbine,colombina ,NONE
+-2146437046,for what it's worth,por si sirve de algo,ADVERB
+-2146425837,etiopathogenesis,etiopatogenia,NOUN
+-2146398794,wrongful death statute,estatuto de la muerte por negligencia de otro,NOUN
+-2146373516,columella,columela,NOUN
+-2146108044,columnist,columnista,NOUN
+-2145782104,sonata form,forma sonata,NOUN
+-2145689493,vocation,vocación,NOUN
+-2145689285,vocative,vocativo,ADJECTIVE
+-2145121324,starboard,estribor,NOUN
+-2145054736,transfer rna,ARN de transferencia,NOUN
+-2145053194,transfer tax,impuesto de transferencia,NOUN
+-2144882564,four o'clock,las cuatro,NOUN
+-2144868064,excommunicate,excomulgar,VERB
+-2144336256,zephaniah,Sofonías,PROPOSITIOIN
+-2144081149,badlands,tierras baldías,NOUN
+-2143620326,hypotenuse,hipotenusa,NOUN
+-2143202801,accident,accidente,NOUN
+-2143003338,transference,transferencia,NOUN
+-2142174641,typographical,tipográfico,ADJECTIVE
+-2141737487,organelle,orgánulo,NONE
+-2141605087,organized,organizado ,NONE
+-2141605073,organizer,organizador,NOUN
+-2141384043,impossible,imposible,ADJECTIVE
+-2141384023,impossibly,imposiblemente,ADVERB
+-2141120100,hypothesis,hipótesis,NOUN

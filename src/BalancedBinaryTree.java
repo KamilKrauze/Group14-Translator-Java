@@ -67,7 +67,7 @@ public class BalancedBinaryTree<T> extends BinaryTree<T> {
      */
     public void balanceTree() {
         List<TreeNode<T>> inorderList = new ArrayList<TreeNode<T>>();
-        super.traverseTreeInorder(super.root, x -> inorderList.add(x));
+        super.traverseTreeInorderNonRecursive(x -> inorderList.add(x)); // NOSONAR
         super.root = this.recreateTreeFromInorderList(inorderList);
     }
 

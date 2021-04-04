@@ -1,6 +1,8 @@
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import javax.swing.JOptionPane;
+
 /**
  * The main translator class
  *
@@ -14,14 +16,10 @@ public class Translator {
     /**
      * @param args
      */
-//    public static void main(String[] args) {
-//        Translator t = new Translator();
-//        t.translateText("Lorem ipsum dolor sit amet. Kurwa do pici.");
-//    }
 
-    public Translator() {
-        dictionary = new Dictionary();
-    }
+//    public Translator() {
+//        dictionary = new Dictionary();
+//    }
 
     public Translator(Dictionary dictionary) {
         this.dictionary = dictionary;
@@ -78,27 +76,29 @@ public class Translator {
      * 
      * @param text to translate
      */
-    public void translateText(String text) {
-        String[] sentences = text.split("[/\\\n(){}[/].,;]");
+    public String translateText(String text) {
+    	//JOptionPane.showMessageDialog(null, text, "Recieved!", JOptionPane.INFORMATION_MESSAGE);
+    	String[] sentences = text.split("[/\\\n(){}[/].,;]");
         Stream<String> sentenceStream = Arrays.stream(sentences);
         String[] result = sentenceStream.parallel().map(sentence -> {
             // * Check if the sentence is too long and would take too long to translate into
             // phrases recursively
             String[] sentArr = sentence.split(" ");
-            if (sentArr.length > maxNumberOfWordInASentence) {
-                // Translate them word by word
-                return String.join(" ", Arrays.stream(sentArr).parallel()
-                        .map(phrase -> dictionary.translatePhrase(phrase)).toArray(String[]::new));
-            } else {
-                // use the sentence translator
+            if (sentArr.length < maxNumberOfWordInASentence) {                
+             // use the sentence translator
                 SentenceTranslator sentenceTranslator = new SentenceTranslator(sentence, dictionary);
                 return sentenceTranslator.translateSentence();
+            } else {
+            	// Translate them word by word
+                return String.join(" ", Arrays.stream(sentArr).parallel()
+                        .map(phrase -> dictionary.translatePhrase(phrase)).toArray(String[]::new));
             }
         }).toArray(String[]::new);
         String finalString = String.join(". ", result);
-        System.out.println("");
-        System.out.println("Translator finished");
-        System.out.println(finalString);
+        //System.out.println("");
+        //System.out.println("Translator finished");
+        JOptionPane.showMessageDialog(null, "Translation complete", "Complete", JOptionPane.PLAIN_MESSAGE);
+        return finalString;
     }
 
 }

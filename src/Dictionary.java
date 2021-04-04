@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
+
+import javax.swing.JOptionPane;
 
 /**
  * The dictionary class, containing the binary search tree with all the words.
@@ -24,9 +27,9 @@ public class Dictionary {
     /**
      * @param args
      */
-//    public static void main(String[] args) {
-//        Dictionary d = new Dictionary("EN-ES-WC.csv");
-//    }
+    // public static void main(String[] args) {
+    // Dictionary d = new Dictionary("EN-ES-WC.csv");
+    // }
 
     public Dictionary() {
         tree = new BalancedBinaryTree<DictionaryEntry>();
@@ -61,13 +64,17 @@ public class Dictionary {
                     }
                 } catch (IDExistsException e) {
                     // System.out.printf("Error: %s when parsing line: %s%n", e, line);
-                } catch (Exception e) { // NOSONAR
-                    System.out.printf("Error: %s when parsing line: %s%n", e, line);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error: \s when parsing line: \s\n" + e + line,
+                            "Added translation", JOptionPane.WARNING_MESSAGE);
+                    System.out.printf("Error: \s when parsing line: \s\n", e, line);
                 }
                 line = reader.readLine();
             }
         } catch (Exception e) {
-            System.out.printf("Error: %s when parsing file: %s%n", e, filePath);
+            // JOptionPane.showMessageDialog(null, "Error: \s when parsing file: \s\n "+ e +
+            // filePath, "Added translation" , JOptionPane.INFORMATION_MESSAGE);// NOSONAR
+            System.out.printf("Error: \s when parsing file: \s\n", e, filePath);
         }
     }
 
@@ -106,16 +113,21 @@ public class Dictionary {
                     int id = Integer.parseInt(tokens[0]);
                     tree.addUnbalanced(new TreeNode<DictionaryEntry>(dictEnt, id));
                 } catch (Exception e) { // NOSONAR
-                    System.out.printf("Error: %s when trying to read file: %s%n", e, "");
+                    System.out.printf("Error: %s when trying to parse word: %s . Word: %n", e, line);
+                    // JOptionPane.showMessageDialog(null, "Error: \s when trying to read file:
+                    // \s\n"+e, "Warning" , JOptionPane.WARNING_MESSAGE);
 
                 }
-                tree.balanceTree();
                 line = reader.readLine();
             }
         } catch (Exception e) {
-            System.out.printf("Error: %s when trying to read file: %s%n", e, "");
+            System.out.printf("Error: %s when trying to read file: %s%n", e, this.fileName);
+            // JOptionPane.showMessageDialog(null,"Error: \s when trying to read file:
+            // \s\n"+e,"Warning",JOptionPane.WARNING_MESSAGE);
 
         }
+        tree.balanceTree();
+
     }
 
     /**
@@ -185,6 +197,10 @@ public class Dictionary {
             return translation.getTranslation();
         } catch (NodeDoesntExistException e) {
             return translateVerb(phrase);
+            // return null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 
@@ -199,18 +215,27 @@ public class Dictionary {
      * @return String
      */
     public String translateVerb(String phrase) {
-        System.out.printf("Orignial phrase: %s", phrase);
-        for (String s : verbPrefixes) {
-            phrase = phrase.replaceAll("/w" + s, "");
+        System.out.printf("Original phrase: %s", phrase);
+        try {
+            for (String s : verbPrefixes) {
+                phrase = phrase.replaceAll("\\b(" + s + ")", "");
+            }
+        } catch (Exception e) {
+            System.out.printf("%nError trying to modify verbs. %s%n", e);
         }
-        for (String s : verbSuffixes) {
-            phrase = phrase.replaceAll(s + "/w", "");
+        try {
+            for (String s : verbSuffixes) {
+                phrase = phrase.replaceAll("(" + s + ")\\b", "");
+            }
+        } catch (Exception e) {
+            System.out.printf("%nError trying to modify verbs. %s%n", e);
         }
-        System.out.printf(". Without verb modifiers: %s5n", phrase);
+        System.out.printf(" Without verb modifiers: %s%n", phrase);
         try {
             DictionaryEntry translation = tree.getNodeById(phrase.hashCode());
             return translation.getTranslation();
-        } catch (NodeDoesntExistException er) {
+        } catch (NodeDoesntExistException e) {
+            System.out.println(phrase + phrase.hashCode());
             return null;
         }
     }
