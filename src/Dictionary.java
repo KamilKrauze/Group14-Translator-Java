@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
@@ -24,12 +23,6 @@ public class Dictionary {
     String[] verbPrefixes;
     String[] verbSuffixes = { "ed", "s", "en" }; // english
 
-    /**
-     * @param args
-     */
-    // public static void main(String[] args) {
-    // Dictionary d = new Dictionary("EN-ES-WC.csv");
-    // }
 
     public Dictionary() {
         tree = new BalancedBinaryTree<DictionaryEntry>();
@@ -220,6 +213,7 @@ public class Dictionary {
      * @return String
      */
     public String translateVerb(String phrase) {
+        String original = phrase;
         System.out.printf("Original phrase: %s", phrase);
         try {
             for (String s : verbPrefixes) {
@@ -241,7 +235,7 @@ public class Dictionary {
             return translation.getTranslation();
         } catch (NodeDoesntExistException e) {
             System.out.println(phrase + phrase.hashCode());
-            return null;
+            return original;
         }
     }
 

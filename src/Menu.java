@@ -14,14 +14,13 @@ import java.io.File;
  */
 public class Menu extends JFrame {
 
-	private enum langList {
-		ENGLISH, SPANISH
-	}
+	String[] langTypes = { "English to Spanish", "Spanish to English" };
+	String[] DictionaryFiles = { "dictionary.txt", "dictionary.txt" };
 
 	public static void main(String[] Args) {
 		Dictionary dictionary = new Dictionary("F:\\Java Workspace\\Group14-Translator-Java\\dictionary copy.txt");
 		// dictionary.loadFromFile();
-		
+
 		Menu menu = new Menu(dictionary);
 		menu.mainMenu();
 	}
@@ -80,13 +79,16 @@ public class Menu extends JFrame {
 		//////////////////////////////// PANEL COMPONENTS
 		//////////////////////////////// ////////////////////////////////////////
 
-		JComboBox initLangBox = new JComboBox(langList.values());
+		JComboBox initLangBox = new JComboBox(langTypes);
 		initLangBox.setSelectedIndex(0);
 		initLangBox.setBounds(5, 0, 150, 40);
-
-		JComboBox newLangBox = new JComboBox(langList.values());
-		newLangBox.setSelectedIndex(1);
-		newLangBox.setBounds(5, 0, 150, 40);
+		initLangBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int userChoice = initLangBox.getSelectedIndex();
+				dictionary = new Dictionary(DictionaryFiles[userChoice]);
+			}
+		});
 
 		JLabel greeting = new JLabel();
 		greeting.setBounds(-50, 15, 500, 25);
@@ -410,7 +412,6 @@ public class Menu extends JFrame {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
 					JOptionPane.showMessageDialog(null,
 							EngBox.getText() + ", " + EspBox.getText() + ", " + WordClassBox.getSelectedItem(),
 							"Added translation", JOptionPane.INFORMATION_MESSAGE);
@@ -637,7 +638,7 @@ public class Menu extends JFrame {
 			if (action.equals("Translate")) {
 				Translator translator = new Translator(dictionary);
 				String translation = translator.translateText(textBox.getText());
-				System.out.println(translation);	
+				System.out.println(translation);
 				JOptionPane.showMessageDialog(null, translation, "Completed Translation", JOptionPane.PLAIN_MESSAGE);
 			}
 		}
