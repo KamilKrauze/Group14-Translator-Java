@@ -130,11 +130,11 @@ public class Translator {
 
         try (Stream<String> stream = Files.lines(Paths.get(filename), StandardCharsets.UTF_8)) {
             String[] result = translateParallel(stream);
-            try (PrintWriter printwriter = new PrintWriter(newFileName)) {
-                Arrays.stream(result).forEach(s -> printwriter.print(s));
-            } catch (IOException e) {
-                throw e;
-            }
+//            try (PrintWriter printwriter = new PrintWriter(newFileName)) {
+//                Arrays.stream(result).forEach(s -> printwriter.print(s));
+//            } catch (IOException e) {
+//                throw e;
+//            }
         } catch (IOException e) {
             throw e;
         }

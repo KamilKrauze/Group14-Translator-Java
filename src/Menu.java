@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -79,13 +80,13 @@ public class Menu extends JFrame {
 		//////////////////////////////// PANEL COMPONENTS
 		//////////////////////////////// ////////////////////////////////////////
 
-		JComboBox initLangBox = new JComboBox(langTypes);
-		initLangBox.setSelectedIndex(0);
-		initLangBox.setBounds(5, 0, 150, 40);
-		initLangBox.addActionListener(new ActionListener() {
+		JComboBox LangBox = new JComboBox(langTypes);
+		LangBox.setSelectedIndex(0);
+		LangBox.setBounds(0, 0, 150, 40);
+		LangBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int userChoice = initLangBox.getSelectedIndex();
+				int userChoice = LangBox.getSelectedIndex();
 				dictionary = new Dictionary(DictionaryFiles[userChoice]);
 			}
 		});
@@ -129,49 +130,33 @@ public class Menu extends JFrame {
 		JButton load = new JButton();
 		load.setBounds(5 + btnOffset, 5, 100, 50);
 		load.setText("Load");
-		load.setToolTipText("Load a text file that would you want to translate from");
+		load.setToolTipText("Load a text (.txt format) file that would you want to translate from.");
 		load.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent ae)
 			{
 				if (ae.getActionCommand().equals("LoadFile"))
 				{
-					 Translator translator = new Translator(dictionary);
+					Translator translator = new Translator(dictionary);
 					
 					JFileChooser jFileChooser = new JFileChooser();
-				     jFileChooser.setCurrentDirectory(new File("user.home"));
+				    jFileChooser.setCurrentDirectory(new File("user.home"));
 				         
-				        int result = jFileChooser.showOpenDialog(new JFrame());
+				    int result = jFileChooser.showOpenDialog(new JFrame());
 				     
 				     
-				        if (result == JFileChooser.APPROVE_OPTION) {
-				            File selectedFile = jFileChooser.getSelectedFile();
-				            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-				        }
-				}
-			}
-		});
-		load.setActionCommand("LoadFile");
-
-		load.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent ae)
-			{
-				if (ae.getActionCommand().equals("LoadFile"))
-				{
-					 Translator translator = new Translator(dictionary);
-					
-					JFileChooser jFileChooser = new JFileChooser();
-				     jFileChooser.setCurrentDirectory(new File("user.home"));
-				         
-				        int result = jFileChooser.showOpenDialog(new JFrame());
-				     
-				     
-				        if (result == JFileChooser.APPROVE_OPTION) {
-				            File selectedFile = jFileChooser.getSelectedFile();
-				            //translator.
-				            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-				        }
+				    if (result == JFileChooser.APPROVE_OPTION)
+				    {
+				    	File selectedFile = jFileChooser.getSelectedFile();
+				    	try {
+							translator.translateFile(selectedFile.getAbsolutePath());
+							translatedBox.setText(getName());
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				    	JOptionPane.showMessageDialog(null, "Selected file: " + selectedFile.getAbsolutePath(), "File Selected", JOptionPane.INFORMATION_MESSAGE);
+				    }
 				}
 			}
 		});
@@ -180,7 +165,16 @@ public class Menu extends JFrame {
 		JButton save = new JButton();
 		save.setBounds(110 + btnOffset, 5, 100, 50);
 		save.setText("Save");
-		save.setToolTipText("Save your translation to a text file");
+		save.setToolTipText("Save your translation to a text file (.txt format).");
+		save.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent ae)
+			{
+				if (ae.getActionCommand().equals("LoadFile"))
+				{
+				}
+			}
+		});
 
 		JButton test = new JButton();
 		test.setBounds(215 + btnOffset, 5, 100, 50);
@@ -228,7 +222,7 @@ public class Menu extends JFrame {
 		menu.add(langOptions);
 
 		langOptions.add(initLang);
-		initLang.add(initLangBox);
+		initLang.add(LangBox);
 
 		langOptions.add(newLang);
 
