@@ -23,6 +23,15 @@ public class Dictionary {
     String[] verbPrefixes;
     String[] verbSuffixes = { "ed", "s", "en" }; // english
 
+    public static void main(String[] args) {
+        Dictionary dictionary = new Dictionary();
+        dictionary.loadDictionaryFromCSV("es-en.csv");
+        dictionary.verbPrefixes = {};
+        dictionary.verbSuffixes = {};
+        dictionary.fileName = "dictionary-ens-to-en.txt";
+        dictionary.saveToFile();
+        
+    }
 
     public Dictionary() {
         tree = new BalancedBinaryTree<DictionaryEntry>();
