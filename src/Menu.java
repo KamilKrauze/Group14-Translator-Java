@@ -16,7 +16,7 @@ import java.io.IOException;
 public class Menu extends JFrame {
 
 	String[] langTypes = { "English to Spanish", "Spanish to English" };
-	String[] DictionaryFiles = { "dictionary.txt", "dictionary.txt" };
+	String[] DictionaryFiles = {"F:\\Java Workspace\\Group14-Translator-Java\\dictionary copy.txt" };
 
 	public static void main(String[] Args) {
 		Dictionary dictionary = new Dictionary("F:\\Java Workspace\\Group14-Translator-Java\\dictionary copy.txt");
@@ -24,6 +24,7 @@ public class Menu extends JFrame {
 
 		Menu menu = new Menu(dictionary);
 		menu.mainMenu();
+		
 	}
 
 	private Dictionary dictionary;
@@ -122,7 +123,7 @@ public class Menu extends JFrame {
 		translateBTN.setBounds(310, 5, 100, 50);
 		translateBTN.setText("Translate");
 		translateBTN.setToolTipText("Translate your text");
-		translateBTN.addActionListener(new myActionListener(dictionary, toTranslate));
+		translateBTN.addActionListener(new myActionListener(dictionary, toTranslate, translatedBox));
 		translateBTN.setActionCommand("Translate");
 
 		int btnOffset = 150;
@@ -144,15 +145,13 @@ public class Menu extends JFrame {
 				         
 				    int result = jFileChooser.showOpenDialog(new JFrame());
 				     
-				     
 				    if (result == JFileChooser.APPROVE_OPTION)
 				    {
 				    	File selectedFile = jFileChooser.getSelectedFile();
 				    	try {
-							translator.translateFile(selectedFile.getAbsolutePath());
-							translatedBox.setText(getName());
+							
+							translatedBox.setText(translator.translateFile(selectedFile.getAbsolutePath()));
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 				    	JOptionPane.showMessageDialog(null, "Selected file: " + selectedFile.getAbsolutePath(), "File Selected", JOptionPane.INFORMATION_MESSAGE);
@@ -170,11 +169,40 @@ public class Menu extends JFrame {
 		{
 			public void actionPerformed(ActionEvent ae)
 			{
-				if (ae.getActionCommand().equals("LoadFile"))
+				if (ae.getActionCommand().equals("Save"))
 				{
+					Translator translator = new Translator();
+					
+					JFileChooser save = new JFileChooser();
+					save.setCurrentDirectory(new File("user.home"));
+					
+					int result = save.showOpenDialog(new JFrame());
+					
+					 if (result == save.APPROVE_OPTION)
+					 {
+						 File file = save.getSelectedFile();
+						 if(file == null)
+						 {
+							 return;
+						 }
+						 if(!file.getName().toLowerCase().endsWith(".txt"))
+						 {
+							 file = new File(file.getParentFile(), file.getName() + ".txt");
+						 }
+						 
+						 try
+						 {
+							 translator.saveTextToAFile(translatedBox.getText(), file.getName());
+						 }
+						 catch(Exception e)
+						 {
+							 e.printStackTrace();
+						 }
+					 }
 				}
 			}
 		});
+		save.setActionCommand("Save");
 
 		JButton test = new JButton();
 		test.setBounds(215 + btnOffset, 5, 100, 50);
@@ -643,10 +671,12 @@ public class Menu extends JFrame {
 	private class myActionListener implements ActionListener {
 		private Dictionary dictionary;
 		private JTextArea textBox;
+		private JTextArea textBox2;
 
-		public myActionListener(Dictionary dictionary, JTextArea textBox) {
+		public myActionListener(Dictionary dictionary, JTextArea textBox, JTextArea textBox2) {
 			this.dictionary = dictionary;
 			this.textBox = textBox;
+			this.textBox2 = textBox2;
 		}
 
 		@Override
@@ -656,7 +686,9 @@ public class Menu extends JFrame {
 				Translator translator = new Translator(dictionary);
 				String translation = translator.translateText(textBox.getText());
 				System.out.println(translation);
-				JOptionPane.showMessageDialog(null, translation, "Completed Translation", JOptionPane.PLAIN_MESSAGE);
+				
+				textBox2.setText(translation);
+				//JOptionPane.showMessageDialog(null, translation, "Completed Translation", JOptionPane.PLAIN_MESSAGE);
 			}
 		}
 	}
