@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import javax.swing.*;
 
 import java.awt.event.*;
+import java.io.File;
 
 /**
  *
@@ -127,6 +128,28 @@ public class Menu extends JFrame {
 		load.setBounds(5 + btnOffset, 5, 100, 50);
 		load.setText("Load");
 		load.setToolTipText("Load a text file that would you want to translate from");
+		load.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent ae)
+			{
+				if (ae.getActionCommand().equals("LoadFile"))
+				{
+					 Translator translator = new Translator(dictionary);
+					
+					JFileChooser jFileChooser = new JFileChooser();
+				     jFileChooser.setCurrentDirectory(new File("user.home"));
+				         
+				        int result = jFileChooser.showOpenDialog(new JFrame());
+				     
+				     
+				        if (result == JFileChooser.APPROVE_OPTION) {
+				            File selectedFile = jFileChooser.getSelectedFile();
+				            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				        }
+				}
+			}
+		});
+		load.setActionCommand("LoadFile");
 
 		JButton save = new JButton();
 		save.setBounds(110 + btnOffset, 5, 100, 50);
