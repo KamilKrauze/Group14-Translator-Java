@@ -20,7 +20,7 @@ public class Menu extends JFrame {
 	public static void main(String[] Args) {
 		Dictionary dictionary = new Dictionary("dictionary.txt");
 		// dictionary.loadFromFile();
-
+		
 		Menu menu = new Menu(dictionary);
 		menu.mainMenu();
 	}

@@ -9,6 +9,7 @@ public enum WordType
 	PRONOUN,
 	VERB,
 	PREPOSITION,
+	PROPOSITIOIN, //Needs to be in for stupid reasons, backwards compatibility
 	INTERJECTION,
 	NONE
 }

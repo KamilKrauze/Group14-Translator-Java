@@ -1,5 +1,5 @@
-[null]
-[ed, s, en]
+null
+ed, s, en
 -2147456755,nuclear physics,física nuclear,NOUN
 -2147292550,parhelion,parhelio,NOUN
 -2147234211,accountability,responsabilidad,NOUN

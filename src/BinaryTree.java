@@ -1,3 +1,4 @@
+import java.util.Stack;
 import java.util.function.Consumer;
 
 /**
@@ -257,10 +258,54 @@ public class BinaryTree<T> {
      * @param f       function to execute on each node
      */
     protected void traverseTreeInorder(TreeNode<T> current, Consumer<TreeNode<T>> f) {
+        if (current == null)
+            return;
         if (current != null) {
             traverseTreeInorder(current.getLeft(), f);
             f.accept(current);
             traverseTreeInorder(current.getRight(), f);
+        }
+    }
+
+    /**
+     * Traverses the tree inorder, executing f. Doesn't use recursion and can
+     * therefore be used on giant data
+     * 
+     * @param f function to execute on each node
+     * @see https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/
+     * 
+     */
+    public void traverseTreeInorderNonRecursive(Consumer<TreeNode<T>> f) {
+        if (root == null)
+            return;
+
+        Stack<TreeNode<T>> s = new Stack<TreeNode<T>>();
+        TreeNode<T> current = root;
+
+        // traverse the tree
+        while (current != null || !s.isEmpty()) {
+
+            /*
+             * Reach the left most Node of the curr Node
+             */
+            while (current != null) {
+                /*
+                 * place pointer to a tree node on the stack before traversing the node's left
+                 * subtree
+                 */
+                s.push(current);
+                current = current.getLeft();
+            }
+
+            /* Current must be NULL at this point */
+            current = s.pop();
+
+            f.accept(current);
+
+            /*
+             * we have visited the node and its left subtree. Now, it's right subtree's turn
+             */
+            current = current.getRight();
         }
     }
 

@@ -113,20 +113,21 @@ public class Dictionary {
                     int id = Integer.parseInt(tokens[0]);
                     tree.addUnbalanced(new TreeNode<DictionaryEntry>(dictEnt, id));
                 } catch (Exception e) { // NOSONAR
-                    // System.out.printf("Error: %s when trying to read file: %s%n", e, "");
+                    System.out.printf("Error: %s when trying to parse word: %s . Word: %n", e, line);
                     // JOptionPane.showMessageDialog(null, "Error: \s when trying to read file:
                     // \s\n"+e, "Warning" , JOptionPane.WARNING_MESSAGE);
 
                 }
-                tree.balanceTree();
                 line = reader.readLine();
             }
         } catch (Exception e) {
-            // System.out.printf("Error: %s when trying to read file: %s%n", e, "");
+            System.out.printf("Error: %s when trying to read file: %s%n", e, this.fileName);
             // JOptionPane.showMessageDialog(null,"Error: \s when trying to read file:
             // \s\n"+e,"Warning",JOptionPane.WARNING_MESSAGE);
 
         }
+        tree.balanceTree();
+
     }
 
     /**
@@ -197,6 +198,9 @@ public class Dictionary {
         } catch (NodeDoesntExistException e) {
             return translateVerb(phrase);
             // return null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 
@@ -214,14 +218,14 @@ public class Dictionary {
         System.out.printf("Original phrase: %s", phrase);
         try {
             for (String s : verbPrefixes) {
-                phrase = phrase.replaceAll("/w" + s, "");
+                phrase = phrase.replaceAll("\\b(" + s + ")", "");
             }
         } catch (Exception e) {
             System.out.printf("%nError trying to modify verbs. %s%n", e);
         }
         try {
             for (String s : verbSuffixes) {
-                phrase = phrase.replaceAll(s + "/w", "");
+                phrase = phrase.replaceAll("(" + s + ")\\b", "");
             }
         } catch (Exception e) {
             System.out.printf("%nError trying to modify verbs. %s%n", e);
