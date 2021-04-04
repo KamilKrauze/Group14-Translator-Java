@@ -1,17 +1,35 @@
 
 public class Tester {
-	BinaryTree<Integer> tree;
+    BinaryTree<Integer> tree;
     BinaryTree<Integer> tree2;
     BinaryTree<Integer> tree3;
-
+    Dictionary dictionary;
+    Translator translator;
 
     public Tester() {
         tree = new BinaryTree<Integer>();
         tree2 = new BinaryTree<Integer>();
         tree3 = new BinaryTree<Integer>();
+
+        dictionary = new Dictionary("dictionary.txt");
+        translator = new Translator(dictionary);
+
+    }
+
+    public void testTranslations() {
+        System.out.println("Testing translations");
+        System.out.println("Test 1");
+        System.out.print("Expected output: estribor:");
+        System.out.println(translator.translateText("Starboard"));
+
+        System.out.println("Test 2");
+        System.out.print("Expected output: null:");
+        System.out.println(dictionary.translatePhrase("Aasdasdasdgd"));
+
     }
 
     public void testBinaryTrees() {
+        System.out.println("Testing binary trees");
         // Test 1
         System.out.println("Test 1");
 
@@ -110,7 +128,6 @@ public class Tester {
         } catch (Exception e) {
             System.out.println("UnExpected");
         }
-
 
         // Test 6
         System.out.println("Test 6");

@@ -205,21 +205,21 @@ public class Menu extends JFrame {
 		});
 		save.setActionCommand("Save");
 
-		JButton test = new JButton();
-		test.setBounds(215 + btnOffset, 5, 100, 50);
-		test.setText("Test");
-		test.setToolTipText("Run a test");
-		test.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				String action = ae.getActionCommand();
-				if (action.equals("Test")) {
-					Tester test = new Tester();
-					test.testBinaryTrees();
-				}
-			}
-		});
-		test.setActionCommand("Test");
+		// JButton test = new JButton();
+		// test.setBounds(215 + btnOffset, 5, 100, 50);
+		// test.setText("Test");
+		// test.setToolTipText("Run a test");
+		// test.addActionListener(new ActionListener() {
+		// 	@Override
+		// 	public void actionPerformed(ActionEvent ae) {
+		// 		String action = ae.getActionCommand();
+		// 		if (action.equals("Test")) {
+		// 			Tester test = new Tester();
+		// 			test.testBinaryTrees();
+		// 		}
+		// 	}
+		// });
+		// test.setActionCommand("Test");
 
 		JButton modify = new JButton();
 		modify.setBounds(320 + btnOffset, 5, 100, 50);
