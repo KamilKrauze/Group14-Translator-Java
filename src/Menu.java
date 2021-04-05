@@ -16,12 +16,10 @@ import java.io.IOException;
 public class Menu extends JFrame {
 
 	String[] langTypes = { "English to Spanish", "Spanish to English" };
-	String[] DictionaryFiles = {"F:\\Java Workspace\\Group14-Translator-Java\\dictionary copy.txt" };
+	String[] DictionaryFiles = {"dictionary.txt" };
 
 	public static void main(String[] Args) {
-		Dictionary dictionary = new Dictionary("F:\\Java Workspace\\Group14-Translator-Java\\dictionary copy.txt");
-		// Dictionary dictionary = new Dictionary("F:\\Java Workspace\\Group14-Translator-Java\\dictionary copy.txt");
-		// dictionary.loadFromFile();
+		Dictionary dictionary = new Dictionary("dictionary.txt");
 
 		Menu menu = new Menu(dictionary);
 		menu.mainMenu();
@@ -267,7 +265,6 @@ public class Menu extends JFrame {
 		menu.add(btnPanel);
 		btnPanel.add(load);
 		btnPanel.add(save);
-		btnPanel.add(test);
 		btnPanel.add(modify);
 
 		panelMain.add(greeting);
